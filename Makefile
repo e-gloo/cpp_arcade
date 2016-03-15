@@ -1,0 +1,76 @@
+CC		= g++
+
+RM		= rm -f
+
+CFLAGS		+= -Wall -Werror -Wextra -I./includes/
+
+LDFLAGS		+= -ldl
+
+SRCS_FO		= ./srcs
+OBJS_FO		= ./objs
+
+LIB_FO		= ./lib/
+SFML_FO		= display/sfml/
+OPENGL_FO	= display/opengl/
+TERM_FO		= display/term/
+
+SFML_FILES	= $(SFML_FO)SFMLDisplay.cpp
+OPENGL_FILES	= $(OPENGL_FO)*.cpp
+TERM_FILES	= $(TERM_FO)*.cpp
+
+SFML_SRCS	= $(SRCS_FO)/$(SFML_FILES)
+OPENGL_SRCS	= $(SRCS_FO)/$(OPENGL_FILES)
+TERM_SRCS	= $(SRCS_FO)/$(TERM_FILES)
+
+SFML_OBJS	= $(OBJS_FO)/$(SFML_FILES:.cpp=.o)
+OPENGL_OBJS	= $(OBJS_FO)/$(OPENGL_FILES:.cpp=.o)
+TERM_OBJS	= $(OBJS_FO)/$(TERM_FILES:.cpp=.o)
+
+SFML_FLAGS	+= -L./libs/SFML-2.3.2/lib/ -lsfml-graphics -lsfml-window -lsfml-system
+OPENGL_FLAGS	+= -L./libs/
+TERM_FLAGS	+= -L./libs/
+
+SFML_LIB	= $(LIB_FO)lib_arcade_sfml.so
+OPENGL_LIB	= $(LIB_FO)lib_arcade_opengl.so
+TERM_LIB	= $(LIB_FO)lib_arcade_term.so
+
+GAME_FO		= ./games/
+NIBBLER_FO	= games/nibbler/
+
+NIBBLER_FILES	= $(NIBBLER_FO)Nibbler.cpp
+
+NIBBLER_SRCS	= $(SRCS_FO)/$(NIBBLER_FILES) $(SRCS_FO)/games/AGame.cpp
+
+NIBBLER_OBJS	= $(OBJS_FO)/$(NIBBLER_FILES:.cpp=.o) $(OBJS_FO)/games/AGame.o
+
+NIBBLER_LIB	= $(GAME_FO)lib_arcade_nibbler.so
+
+SRCS		= main.cpp
+
+OBJS		= $(SRCS:.cpp=.o)
+
+NAME		= arcade
+
+all:		$(SFML_LIB) $(NIBBLER_LIB) $(NAME)
+
+$(SFML_LIB):
+		$(CC) -c $(SFML_SRCS) -o $(SFML_OBJS) -fPIC $(CFLAGS)
+		$(CC) $(CFLAGS) $(SFML_FLAGS) -o $(SFML_LIB) $(SFML_OBJS) -shared
+
+$(NIBBLER_LIB):
+		$(CC) -c $(NIBBLER_SRCS) -o $(NIBBLER_OBJS) -fPIC $(CFLAGS)
+		$(CC) $(CFLAGS) -o $(NIBBLER_LIB) $(NIBBLER_OBJS) -shared
+
+$(NAME):
+		$(CC) -c $(SRCS) -o $(OBJS) $(CFLAGS)
+		$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LDFLAGS)
+
+clean:
+		$(RM) $(OBJS)
+		$(RM) $(SFML_OBJS)
+
+fclean:		clean
+		$(RM) $(NAME)
+		$(RM) $(SFML_LIB)
+
+re:		fclean all
