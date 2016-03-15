@@ -24,7 +24,7 @@ public:
   virtual int	play(char, int const) = 0;
   virtual char	**getMap() const = 0;
   virtual void startGame(IDisplayManager &) = 0;
-  virtual std::map<int, std::list<void *>> *getEntities() = 0;
+  virtual std::map<int, std::list<void *> > *getEntities() = 0;
 };
 
 #endif /* ! _IGAME_HPP_ */

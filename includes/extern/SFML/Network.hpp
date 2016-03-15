@@ -29,17 +29,17 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <SFML/System.hpp>
-#include <SFML/Network/Ftp.hpp>
-#include <SFML/Network/Http.hpp>
-#include <SFML/Network/IpAddress.hpp>
-#include <SFML/Network/Packet.hpp>
-#include <SFML/Network/Socket.hpp>
-#include <SFML/Network/SocketHandle.hpp>
-#include <SFML/Network/SocketSelector.hpp>
-#include <SFML/Network/TcpListener.hpp>
-#include <SFML/Network/TcpSocket.hpp>
-#include <SFML/Network/UdpSocket.hpp>
+#include "extern/SFML/System.hpp"
+#include "extern/SFML/Network/Ftp.hpp"
+#include "extern/SFML/Network/Http.hpp"
+#include "extern/SFML/Network/IpAddress.hpp"
+#include "extern/SFML/Network/Packet.hpp"
+#include "extern/SFML/Network/Socket.hpp"
+#include "extern/SFML/Network/SocketHandle.hpp"
+#include "extern/SFML/Network/SocketSelector.hpp"
+#include "extern/SFML/Network/TcpListener.hpp"
+#include "extern/SFML/Network/TcpSocket.hpp"
+#include "extern/SFML/Network/UdpSocket.hpp"
 
 
 #endif // SFML_NETWORK_HPP

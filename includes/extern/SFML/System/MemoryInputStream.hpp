@@ -28,9 +28,9 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Config.hpp>
-#include <SFML/System/InputStream.hpp>
-#include <SFML/System/Export.hpp>
+#include "extern/SFML/Config.hpp"
+#include "extern/SFML/System/InputStream.hpp"
+#include "extern/SFML/System/Export.hpp"
 #include <cstdlib>
 
 

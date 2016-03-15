@@ -28,8 +28,8 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/System/Export.hpp>
-#include <SFML/System/NonCopyable.hpp>
+#include "extern/SFML/System/Export.hpp"
+#include "extern/SFML/System/NonCopyable.hpp"
 #include <cstdlib>
 
 
@@ -190,7 +190,7 @@ private:
     priv::ThreadFunc* m_entryPoint; ///< Abstraction of the function to run
 };
 
-#include <SFML/System/Thread.inl>
+#include "extern/SFML/System/Thread.inl"
 
 } // namespace sf
 

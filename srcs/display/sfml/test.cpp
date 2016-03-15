@@ -1,4 +1,1 @@
-int	main(int ac, char **av)
-{
-
-}
+#include "display/sfml/SFMLDisplay.hpp"

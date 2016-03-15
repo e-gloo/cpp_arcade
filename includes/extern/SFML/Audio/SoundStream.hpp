@@ -28,11 +28,11 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Audio/Export.hpp>
-#include <SFML/Audio/SoundSource.hpp>
-#include <SFML/System/Thread.hpp>
-#include <SFML/System/Time.hpp>
-#include <SFML/System/Mutex.hpp>
+#include "extern/SFML/Audio/Export.hpp"
+#include "extern/SFML/Audio/SoundSource.hpp"
+#include "extern/SFML/System/Thread.hpp"
+#include "extern/SFML/System/Time.hpp"
+#include "extern/SFML/System/Mutex.hpp"
 #include <cstdlib>
 
 

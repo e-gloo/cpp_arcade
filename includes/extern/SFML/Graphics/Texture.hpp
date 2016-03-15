@@ -28,9 +28,9 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Graphics/Export.hpp>
-#include <SFML/Graphics/Image.hpp>
-#include <SFML/Window/GlResource.hpp>
+#include "extern/SFML/Graphics/Export.hpp"
+#include "extern/SFML/Graphics/Image.hpp"
+#include "extern/SFML/Window/GlResource.hpp"
 
 
 namespace sf

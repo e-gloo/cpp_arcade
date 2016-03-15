@@ -28,9 +28,9 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Audio/Export.hpp>
-#include <SFML/Audio/SoundBuffer.hpp>
-#include <SFML/Audio/SoundRecorder.hpp>
+#include "extern/SFML/Audio/Export.hpp"
+#include "extern/SFML/Audio/SoundBuffer.hpp"
+#include "extern/SFML/Audio/SoundRecorder.hpp"
 #include <vector>
 
 

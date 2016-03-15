@@ -12,7 +12,7 @@ SFML_FO		= display/sfml/
 OPENGL_FO	= display/opengl/
 TERM_FO		= display/term/
 
-SFML_FILES	= $(SFML_FO)*.cpp
+SFML_FILES	= $(SFML_FO)test.cpp
 OPENGL_FILES	= $(OPENGL_FO)*.cpp
 TERM_FILES	= $(TERM_FO)*.cpp
 
@@ -43,7 +43,7 @@ NAME		= arcade
 all:		$(NAME) $(SFML_LIB)
 
 $(SFML_LIB):
-		$(CC) -c $(SFML_SRCS) -o $(SFML_OBJS) -fPIC
+		$(CC) -c $(SFML_SRCS) -o $(SFML_OBJS) -fPIC $(CFLAGS)
 		$(CC) $(CFLAGS) $(SFML_FLAGS) -o $(SFML_LIB) $(SFML_OBJS) -shared
 
 $(NAME):	$(OBJS)

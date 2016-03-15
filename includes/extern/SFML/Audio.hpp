@@ -29,20 +29,20 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
-#include <SFML/System.hpp>
-#include <SFML/Audio/InputSoundFile.hpp>
-#include <SFML/Audio/Listener.hpp>
-#include <SFML/Audio/Music.hpp>
-#include <SFML/Audio/OutputSoundFile.hpp>
-#include <SFML/Audio/Sound.hpp>
-#include <SFML/Audio/SoundBuffer.hpp>
-#include <SFML/Audio/SoundBufferRecorder.hpp>
-#include <SFML/Audio/SoundFileFactory.hpp>
-#include <SFML/Audio/SoundFileReader.hpp>
-#include <SFML/Audio/SoundFileWriter.hpp>
-#include <SFML/Audio/SoundRecorder.hpp>
-#include <SFML/Audio/SoundSource.hpp>
-#include <SFML/Audio/SoundStream.hpp>
+#include "extern/SFML/System.hpp"
+#include "extern/SFML/Audio/InputSoundFile.hpp"
+#include "extern/SFML/Audio/Listener.hpp"
+#include "extern/SFML/Audio/Music.hpp"
+#include "extern/SFML/Audio/OutputSoundFile.hpp"
+#include "extern/SFML/Audio/Sound.hpp"
+#include "extern/SFML/Audio/SoundBuffer.hpp"
+#include "extern/SFML/Audio/SoundBufferRecorder.hpp"
+#include "extern/SFML/Audio/SoundFileFactory.hpp"
+#include "extern/SFML/Audio/SoundFileReader.hpp"
+#include "extern/SFML/Audio/SoundFileWriter.hpp"
+#include "extern/SFML/Audio/SoundRecorder.hpp"
+#include "extern/SFML/Audio/SoundSource.hpp"
+#include "extern/SFML/Audio/SoundStream.hpp"
 
 
 #endif // SFML_AUDIO_HPP
