@@ -2,7 +2,7 @@ CC		= g++
 
 RM		= rm -f
 
-CFLAGS		+= -Wall -Werror -Wextra -I./includes/
+CFLAGS		+= -Wall -Werror -Wextra -Wno-unused -I./includes/ --std=c++11
 
 LDFLAGS		+= -ldl
 
@@ -37,11 +37,15 @@ TERM_LIB	= $(LIB_FO)lib_arcade_term.so
 GAME_FO		= ./games/
 NIBBLER_FO	= games/nibbler/
 
+AGAME_SRCS	= $(SRCS_FO)/games/AGame.cpp
+
+AGAME_OBJS	= $(OBJS_FO)/games/AGame.o
+
 NIBBLER_FILES	= $(NIBBLER_FO)Nibbler.cpp
 
-NIBBLER_SRCS	= $(SRCS_FO)/$(NIBBLER_FILES) $(SRCS_FO)/games/AGame.cpp
+NIBBLER_SRCS	= $(SRCS_FO)/$(NIBBLER_FILES)
 
-NIBBLER_OBJS	= $(OBJS_FO)/$(NIBBLER_FILES:.cpp=.o) $(OBJS_FO)/games/AGame.o
+NIBBLER_OBJS	= $(OBJS_FO)/$(NIBBLER_FILES:.cpp=.o)
 
 NIBBLER_LIB	= $(GAME_FO)lib_arcade_nibbler.so
 
@@ -59,7 +63,8 @@ $(SFML_LIB):
 
 $(NIBBLER_LIB):
 		$(CC) -c $(NIBBLER_SRCS) -o $(NIBBLER_OBJS) -fPIC $(CFLAGS)
-		$(CC) $(CFLAGS) -o $(NIBBLER_LIB) $(NIBBLER_OBJS) -shared
+		$(CC) -c $(AGAME_SRCS) -o $(AGAME_OBJS) -fPIC $(CFLAGS)
+		$(CC) $(CFLAGS) -o $(NIBBLER_LIB) $(NIBBLER_OBJS) $(AGAME_OBJS) -shared
 
 $(NAME):
 		$(CC) -c $(SRCS) -o $(OBJS) $(CFLAGS)

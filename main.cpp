@@ -15,7 +15,6 @@ int	main(int ac, char **av)
   if (creator == NULL)
     exit(1);
   IDisplayManager *manager = creator();
-  manager->startGame();
   delete manager;
   (void)ac;
 }

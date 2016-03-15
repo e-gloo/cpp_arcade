@@ -5,10 +5,10 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 13:05:12 2016 Dylan Coodien
-** Last update Tue Mar 15 16:53:13 2016 Dylan Coodien
+** Last update Tue Mar 15 19:11:29 2016 Dylan Coodien
 */
 
-#include "AGame.hpp"
+#include "games/AGame.hpp"
 
 AGame::AGame()
   :sizeX(0), sizeY(0), map(NULL), entities(NULL), previousTime(std::time(0))

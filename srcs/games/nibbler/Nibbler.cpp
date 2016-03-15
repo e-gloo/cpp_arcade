@@ -5,10 +5,10 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-** Last update Tue Mar 15 18:35:23 2016 Dylan Coodien
+** Last update Tue Mar 15 19:07:16 2016 Dylan Coodien
 */
 
-#include "Nibbler.hpp"
+#include "games/nibbler/Nibbler.hpp"
 
 Nibbler::Nibbler()
   :AGame()
