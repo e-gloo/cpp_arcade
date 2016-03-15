@@ -4,6 +4,8 @@ RM		= rm -f
 
 CFLAGS		+= -Wall -Werror -Wextra -I./includes/
 
+LDFLAGS		+= -ldl
+
 SRCS_FO		= ./srcs
 OBJS_FO		= ./objs
 
@@ -12,7 +14,7 @@ SFML_FO		= display/sfml/
 OPENGL_FO	= display/opengl/
 TERM_FO		= display/term/
 
-SFML_FILES	= $(SFML_FO)test.cpp
+SFML_FILES	= $(SFML_FO)SFMLDisplay.cpp
 OPENGL_FILES	= $(OPENGL_FO)*.cpp
 TERM_FILES	= $(TERM_FO)*.cpp
 
@@ -40,14 +42,15 @@ OBJS		= $(SRCS:.cpp=.o)
 
 NAME		= arcade
 
-all:		$(NAME) $(SFML_LIB)
+all:		$(SFML_LIB) $(NAME)
 
 $(SFML_LIB):
 		$(CC) -c $(SFML_SRCS) -o $(SFML_OBJS) -fPIC $(CFLAGS)
 		$(CC) $(CFLAGS) $(SFML_FLAGS) -o $(SFML_LIB) $(SFML_OBJS) -shared
 
-$(NAME):	$(OBJS)
-		$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
+$(NAME):
+		$(CC) -c $(SRCS) -o $(OBJS) $(CFLAGS)
+		$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LDFLAGS)
 
 clean:
 		$(RM) $(OBJS)
