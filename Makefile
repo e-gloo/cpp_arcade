@@ -27,6 +27,7 @@ OPENGL_OBJS	= $(OBJS_FO)/$(OPENGL_FILES:.cpp=.o)
 TERM_OBJS	= $(OBJS_FO)/$(TERM_FILES:.cpp=.o)
 
 SFML_FLAGS	+= -L./libs/SFML-2.3.2/lib/ -lsfml-graphics -lsfml-window -lsfml-system
+##SFML_FLAGS	= ./libs/SFML-2.3.2/lib/libsfml-graphics.so.2.3
 OPENGL_FLAGS	+= -L./libs/
 TERM_FLAGS	+= -L./libs/
 
@@ -68,14 +69,16 @@ $(NIBBLER_LIB):
 
 $(NAME):
 		$(CC) -c $(SRCS) -o $(OBJS) $(CFLAGS)
-		$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LDFLAGS)
+		$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LDFLAGS) $(SFML_FLAGS)
 
 clean:
 		$(RM) $(OBJS)
 		$(RM) $(SFML_OBJS)
+		$(RM) $(NIBBLER_OBJS)
 
 fclean:		clean
 		$(RM) $(NAME)
 		$(RM) $(SFML_LIB)
+		$(RM) $(NIBBLER_LIB)
 
 re:		fclean all
