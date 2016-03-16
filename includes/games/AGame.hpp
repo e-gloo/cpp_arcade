@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 12:42:18 2016 Dylan Coodien
-** Last update Tue Mar 15 16:53:18 2016 Dylan Coodien
+** Last update Tue Mar 15 22:12:57 2016 Dylan Coodien
 */
 
 #ifndef AGAME_HPP_
