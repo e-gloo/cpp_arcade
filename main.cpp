@@ -19,29 +19,19 @@ int	main(int ac, char **av)
       exit(1);
     }
 
-  std::cout << "test2" << std::endl;
-
   if ((dlghandle = dlopen(av[2], RTLD_LAZY)) == NULL)
     exit(1);
-
-  std::cout << "test1" << std::endl;
 
   creator = reinterpret_cast<IDisplayManager * (*)()>(dlsym(dlhandle, "getInstance"));
   if (creator == NULL)
     exit(1);
   IDisplayManager *manager = creator();
 
-  std::cout << "ok" << std::endl;
-
   gcreator = reinterpret_cast<IGame * (*)()>(dlsym(dlghandle, "getInstance"));
   if (gcreator == NULL)
     exit(1);
   IGame *game = gcreator();
 
-  std::cout << "test" << std::endl;
-
-  //  manager->startGame(*game, "");
-  //manager->createWindow(0, 0, "bonjour");
   game->startGame(*manager);
 
   delete manager;
