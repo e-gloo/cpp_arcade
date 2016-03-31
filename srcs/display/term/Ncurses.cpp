@@ -22,10 +22,8 @@ Ncurses::~Ncurses()
 
 int		Ncurses::createWindow(size_t const &length, size_t const &height, std::string const &name)
 {
-  (void)length;
-  (void)height;
-  _width = WIDTH;
-  _height = HEIGHT;
+  _width = length;
+  _height = height;
   int xstart = (COLS - _width) / 2;
   int ystart = (LINES - _height) / 2;
 
@@ -43,7 +41,7 @@ int		Ncurses::createWindow(size_t const &length, size_t const &height, std::stri
   return (0);
 }
 
-std::string	Ncurses::startGame(IGame &game, std::string const &musicName)
+std::string	Ncurses::startGame(IGame &game)
 {
   bool		running = true;
   char		**map;
@@ -52,13 +50,12 @@ std::string	Ncurses::startGame(IGame &game, std::string const &musicName)
   while (running)
     {
       map = game.getMap();
-      this->displayMap(map, WIDTH, HEIGHT);
+      this->displayMap(map, _width, _height);
       if ((key = wgetch(_window)) == 27)
 	running = false;
       if (game.play(key) == 1)
 	running = false;
     }
-  (void)musicName;
   return ("");
 }
 
@@ -70,27 +67,12 @@ void		Ncurses::displayMap(char **map, int const sizeX, int const sizeY)
   wrefresh(_window);
 }
 
-int		Ncurses::setShape(IGame &game, int const tileType, std::string const &shape, unsigned int const color, unsigned int const size, std::string const &textureName)
+int		Ncurses::setShape(int const tileType, std::string const &shape, unsigned int const color, std::string const &textureName)
 {
-  (void)game;
   (void)color;
-  (void)size;
   (void)textureName;
   _shapes[tileType] = shape;
   return (0);
-}
-
-void		Ncurses::displayEntities(std::map<int, std::list<void *> > *entities, int const sizeX, int const sizeY)
-{
-  (void)entities;
-  (void)sizeX;
-  (void)sizeY;
-}
-
-std::string	Ncurses::replay(int const score)
-{
-  (void)score;
-  return ("");
 }
 
 extern "C"
