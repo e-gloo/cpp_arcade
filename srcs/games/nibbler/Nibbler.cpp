@@ -5,11 +5,12 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-** Last update Wed Mar 16 15:56:56 2016 Dylan Coodien
+** Last update Thu Mar 31 13:52:51 2016 Dylqn Coodien
 */
 
-#include <iostream>
+#include <unistd.h>
 #include "games/nibbler/Nibbler.hpp"
+#include "Protocol.hpp"
 
 Nibbler::Nibbler()
   :AGame()
@@ -34,7 +35,6 @@ Nibbler::Nibbler()
   moves->push_back(&Nibbler::moveDown);
   moves->push_back(&Nibbler::moveRight);
   lastMove = &Nibbler::moveRight;
-  display();
   score = 0;
 }
 
@@ -54,7 +54,7 @@ void			Nibbler::initMap()
 	      || x == 0 || x == sizeX - 1)
 	    map[y][x] = BORDER;
 	  else
-	    map[y][x] = EMPTY;
+	    map[y][x] = EMPT;
 	}
     }
 }
@@ -86,12 +86,17 @@ void			Nibbler::geneFood()
   int			y = 0;
   int			x = 0;
 
-  while (map[y][x] != EMPTY)
+  while (map[y][x] != EMPT)
     {
       x = (rand() % sizeX);
       y = (rand() % sizeY);
     }
   map[y][x] = FOOD;
+}
+
+std::vector<t_snakePosition *>		*Nibbler::getSnake() const
+{
+  return (this->snake);
 }
 
 int			Nibbler::play(char move)
@@ -103,116 +108,207 @@ int			Nibbler::play(char move)
   int			move_index;
   char			tyle;
 
-  if ((time - this->previousTime) < 250)
-    return (score);
-  timeDiff = time - this->previousTime;
-  this->previousTime = time;
   move_index = 0;
   index = snake->size() - 1;
-  map[snake->at(index)->coordinates->y][snake->at(index)->coordinates->x] = EMPTY;
+  int	save_x = snake->at(index)->coordinates->x;
+  int	save_y = snake->at(index)->coordinates->y;
 
-  delete snake->at(index)->coordinates;
   while (index > 0)
     {
-      snake->at(index)->coordinates = snake->at(index - 1)->coordinates;
+      snake->at(index)->coordinates->x = snake->at(index - 1)->coordinates->x;
+      snake->at(index)->coordinates->y = snake->at(index - 1)->coordinates->y;
       --index;
     }
-
-  snake->at(index)->coordinates = new t_coordinates;
-  snake->at(index)->coordinates->x = snake->at(index + 1)->coordinates->x;
-  snake->at(index)->coordinates->y = snake->at(index + 1)->coordinates->y;
 
   while (actions[move_index] != move && move_index < NB_MOVES)
     ++move_index;
 
   if (move_index < NB_MOVES)
-    (this->*(moves->at(move_index)))();
+    (this->*(moves->at(move_index)))(save_x, save_y);
   else
-    (this->*lastMove)();
+    (this->*lastMove)(save_x, save_y);
 
   tyle = map[snake->at(0)->coordinates->y][snake->at(0)->coordinates->x];
   if (tyle == BORDER || tyle == SNAKE)
     return (1);
   map[snake->at(0)->coordinates->y][snake->at(0)->coordinates->x] = SNAKE;
-  display();
   return (0);
 }
 
-void				Nibbler::moveUp()
+void				Nibbler::moveUp(int save_x, int save_y)
 {
+  int	x = snake->at(0)->coordinates->x;
+  int	y = snake->at(0)->coordinates->y;
+
   if (lastAction == 'd' || lastAction == 'q' || lastAction == 'z')
     {
+      if (map[y - 1][x] == FOOD)
+	{
+	  snake->push_back(new t_snakePosition);
+	  snake->at(snake->size() - 1)->coordinates = new t_coordinates;
+	  snake->at(snake->size() - 1)->coordinates->y = save_y;
+	  snake->at(snake->size() - 1)->coordinates->x = save_x;
+	  snake->at(snake->size() - 1)->part = Snake::TAIL;
+	  snake->at(snake->size() - 2)->part = Snake::BODY;
+	  geneFood();
+	}
+      else
+	map[save_y][save_x] = EMPT;
       snake->at(0)->coordinates->y -= 1;
       lastAction = 'z';
       lastMove = &Nibbler::moveUp;
     }
   else
-    (this->*lastMove)();
+    (this->*lastMove)(save_x, save_y);
 }
 
-void				Nibbler::moveLeft()
+void				Nibbler::moveLeft(int save_x, int save_y)
 {
+  int	x = snake->at(0)->coordinates->x;
+  int	y = snake->at(0)->coordinates->y;
+
   if (lastAction == 'z' || lastAction == 's' || lastAction == 'q')
     {
+      if (map[y][x - 1] == FOOD)
+	{
+	  snake->push_back(new t_snakePosition);
+	  snake->at(snake->size() - 1)->coordinates = new t_coordinates;
+	  snake->at(snake->size() - 1)->coordinates->y = save_y;
+	  snake->at(snake->size() - 1)->coordinates->x = save_x;
+	  snake->at(snake->size() - 1)->part = Snake::TAIL;
+	  snake->at(snake->size() - 2)->part = Snake::BODY;
+	  geneFood();
+	}
+      else
+	map[save_y][save_x] = EMPT;
       snake->at(0)->coordinates->x -= 1;
       lastAction = 'q';
       lastMove = &Nibbler::moveLeft;
     }
   else
-    (this->*lastMove)();
+    (this->*lastMove)(save_x, save_y);
 }
 
-void				Nibbler::moveDown()
+void				Nibbler::moveDown(int save_x, int save_y)
 {
+  int	x = snake->at(0)->coordinates->x;
+  int	y = snake->at(0)->coordinates->y;
+
   if (lastAction == 'q' || lastAction == 'd' || lastAction == 's')
     {
+      if (map[y + 1][x] == FOOD)
+	{
+	  snake->push_back(new t_snakePosition);
+	  snake->at(snake->size() - 1)->coordinates = new t_coordinates;
+	  snake->at(snake->size() - 1)->coordinates->y = save_y;
+	  snake->at(snake->size() - 1)->coordinates->x = save_x;
+	  snake->at(snake->size() - 1)->part = Snake::TAIL;
+	  snake->at(snake->size() - 2)->part = Snake::BODY;
+	  geneFood();
+	}
+      else
+	map[save_y][save_x] = EMPT;
       snake->at(0)->coordinates->y += 1;
       lastAction = 's';
       lastMove = &Nibbler::moveDown;
     }
   else
-    (this->*lastMove)();
+    (this->*lastMove)(save_x, save_y);
 }
 
-void				Nibbler::moveRight()
+void				Nibbler::moveRight(int save_x, int save_y)
 {
+  int	x = snake->at(0)->coordinates->x;
+  int	y = snake->at(0)->coordinates->y;
+
   if (lastAction == 'z' || lastAction == 's' || lastAction == 'd')
     {
+      if (map[y][x + 1] == FOOD)
+	{
+	  snake->push_back(new t_snakePosition);
+	  snake->at(snake->size() - 1)->coordinates = new t_coordinates;
+	  snake->at(snake->size() - 1)->coordinates->y = save_y;
+	  snake->at(snake->size() - 1)->coordinates->x = save_x;
+	  snake->at(snake->size() - 1)->part = Snake::TAIL;
+	  snake->at(snake->size() - 2)->part = Snake::BODY;
+	  geneFood();
+	}
+      else
+	map[save_y][save_x] = EMPT;
       snake->at(0)->coordinates->x += 1;
       lastAction = 'd';
       lastMove = &Nibbler::moveRight;
     }
   else
-    (this->*lastMove)();
+    (this->*lastMove)(save_x, save_y);
 }
-
-void				Nibbler::display()
-{
-  for (int i = 0; i < sizeY; ++i)
-    {
-      for (int n = 0; n < sizeX; ++n)
-	{
-	  if (map[i][n] == BORDER)
-	    std::cout << '|';
-	  else if (map[i][n] == EMPTY)
-	    std::cout << ' ';
-	  else if (map[i][n] == FOOD)
-	    std::cout << 'x';
-	  else
-	    std::cout << 'o';
-	}
-      std::cout << std::endl;
-    }
-  for (unsigned int i = 0; i < snake->size(); i++)
-    {
-      std::cout << snake->at(i)->coordinates->y << ", "
-		<< snake->at(i)->coordinates->x << std::endl;
-    }
-}
-
 
 extern "C"
 {
   IGame			*getInstance() {return (new Nibbler); }
-}
 
+  void			whereAmI(std::vector<t_snakePosition *> *snake,
+				 arcade::CommandType commands)
+  {
+    int			size = snake->size();
+    arcade::WhereAmI	*moul = new arcade::WhereAmI + size *
+      sizeof(arcade::Position);
+
+    size = snake->size();
+    moul->type = commands;
+    moul->lenght = size;
+    for (int t = 0; t < size; ++t)
+      {
+	moul->position[t].x = snake->at(t)->coordinates->x;
+	moul->position[t].y = snake->at(t)->coordinates->y;
+      }
+    write(1, moul, sizeof(arcade::WhereAmI) + size * sizeof(arcade::Position));
+  }
+
+  void			getMap(arcade::CommandType commands)
+  {
+    arcade::GetMap	*get_map = new arcade::GetMap +
+      (WIDTH * HEIGHT) * sizeof(arcade::TileType);
+
+    get_map->width = WIDTH;
+    get_map->height = HEIGHT;
+    for (int t = 0; t < get_map->width * get_map->height; ++t)
+      get_map->tile[t] = arcade::TileType::EMPTY;
+    get_map->type = commands;
+    write(1, get_map, sizeof(arcade::GetMap) +
+	  (WIDTH * HEIGHT) * sizeof(arcade::TileType));
+  }
+
+  void					Play(void)
+  {
+    arcade::CommandType			commands;
+    Nibbler				*nibbler = new Nibbler;
+    std::vector<t_snakePosition *>	*snake = nibbler->getSnake();
+    arcade::CommandType			lastOne = arcade::CommandType::GO_FORWARD;
+    std::map<arcade::CommandType, char>	Hmap;
+
+    Hmap[arcade::CommandType::GO_UP] = 'z';
+    Hmap[arcade::CommandType::GO_DOWN] = 's';
+    Hmap[arcade::CommandType::GO_LEFT] = 'q';
+    Hmap[arcade::CommandType::GO_RIGHT] = 'd';
+    Hmap[arcade::CommandType::GO_FORWARD] = 'a';
+    while (read(0, &commands, sizeof(arcade::CommandType)))
+      {
+	if (commands == arcade::CommandType::GET_MAP)
+	  getMap(commands);
+	else if (commands == arcade::CommandType::WHERE_AM_I)
+	  whereAmI(snake, commands);
+	else if (commands == arcade::CommandType::GO_UP ||
+		 commands == arcade::CommandType::GO_DOWN ||
+		 commands == arcade::CommandType::GO_LEFT ||
+		 commands == arcade::CommandType::GO_RIGHT ||
+		 commands == arcade::CommandType::GO_FORWARD)
+	  lastOne = commands;
+	else if (commands == arcade::CommandType::PLAY)
+	  {
+	    nibbler->play(Hmap[lastOne]);
+	    snake = nibbler->getSnake();
+	  }
+      }
+  }
+}
