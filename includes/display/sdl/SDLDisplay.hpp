@@ -2,6 +2,7 @@
 # define SDLDISPLAY_HPP_
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <map>
 #include "display/IDisplayManager.hpp"
 
@@ -13,6 +14,14 @@ class SDLDisplay : public IDisplayManager
   SDL_Surface	*_screen;
   int		_width;
   int		_height;
+  std::map<int, std::pair<Uint32, SDL_Surface*> > _shapes;
+  SDL_Event	_event;
+  bool		_exit;
+  bool		_keys[SDLK_LAST];
+
+  void		drawCase(int, int, char**);
+  void		catchEvent();
+  char		readKey();
 
 public:
   explicit SDLDisplay();
