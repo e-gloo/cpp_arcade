@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:53:53 2016 Dylan Coodien
-// Last update Thu Mar 31 14:15:28 2016 François Cassin
+** Last update Thu Mar 31 15:41:15 2016 Dylqn Coodien
 */
 
 #ifndef NIBBLER_HPP_
@@ -13,6 +13,7 @@
 
 # include <vector>
 # include "games/AGame.hpp"
+# include "display/IDisplayManager.hpp"
 
 # define NB_MOVES	4
 
@@ -77,6 +78,7 @@ class Nibbler: public AGame
 public:
   Nibbler();
   virtual				~Nibbler();
+  virtual void				startGame(IDisplayManager &);
   virtual int				play(char);
   std::vector<t_snakePosition *>	*getSnake() const;
 };

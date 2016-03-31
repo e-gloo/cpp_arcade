@@ -5,10 +5,9 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 13:05:12 2016 Dylan Coodien
-// Last update Thu Mar 31 15:23:29 2016 François Cassin
+** Last update Thu Mar 31 15:40:51 2016 Dylqn Coodien
 */
 
-#include "display/IDisplayManager.hpp"
 #include "games/AGame.hpp"
 #include "games/nibbler/Nibbler.hpp"
 
@@ -35,18 +34,4 @@ char					**AGame::getMap() const
 std::map<int, std::list<void *> >	*AGame::getEntities() const
 {
   return (this->entities);
-}
-
-void					AGame::startGame(IDisplayManager &dis)
-{
-  IGame *snake;
-
-  srand(time(0));
-  snake = new Nibbler();
-  dis.createWindow(0, 0, "Nibbler");
-  dis.setShape(*snake, 0, "  map", 0xFF000000, 1);
-  dis.setShape(*snake, -1, "X bord", 0xFF00FF00, 1);
-  dis.setShape(*snake, 1, "o snake", 0xFFFFFFFF, 1);
-  dis.setShape(*snake, 2, "x food", 0xFF0000FF, 1);
-  dis.startGame(*snake, "");
 }

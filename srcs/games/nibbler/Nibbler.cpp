@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-// Last update Thu Mar 31 14:27:19 2016 François Cassin
+** Last update Thu Mar 31 15:46:15 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
@@ -99,6 +99,16 @@ std::vector<t_snakePosition *>		*Nibbler::getSnake() const
   return (this->snake);
 }
 
+void					Nibbler::startGame(IDisplayManager &dis)
+{
+  dis.createWindow(0, 0, "Nibbler");
+  dis.setShape(*this, 0, "  map", 0xFF000000, 1);
+  dis.setShape(*this, -1, "X bord", 0xFF00FF00, 1);
+  dis.setShape(*this, 1, "o snake", 0xFFFFFFFF, 1);
+  dis.setShape(*this, 2, ". food", 0xFF0000FF, 1);
+  dis.startGame(*this, "");
+}
+
 int			Nibbler::play(char move)
 {
   long int		time = std::time(0) * 1000;
@@ -107,6 +117,11 @@ int			Nibbler::play(char move)
   int			index;
   int			move_index;
   char			tyle;
+
+  if ((time - this->previousTime) < MIN_TIME)
+    return (score);
+  timeDiff = time - this->previousTime;
+  this->previousTime = time;
 
   move_index = 0;
   index = snake->size() - 1;
