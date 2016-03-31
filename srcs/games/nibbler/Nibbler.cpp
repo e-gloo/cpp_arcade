@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-// Last update Thu Mar 31 22:57:28 2016 François Cassin
+** Last update Thu Mar 31 23:12:24 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
@@ -111,17 +111,20 @@ void					Nibbler::startGame(IDisplayManager &dis)
 
 int			Nibbler::play(char move)
 {
-  long int		time = std::time(0) * 1000;
+  std::clock_t		time = std::clock();
   int			timeDiff;
   int			nbMoves;
   int			index;
   int			move_index;
   char			tyle;
 
-  if ((time - this->previousTime) < MIN_TIME && move == -1)
-    return (score);
-  timeDiff = time - this->previousTime;
+  if (move != -1)
+    this->action = move;
+  if (((time - this->previousTime) / (double)(CLOCKS_PER_SEC / 1000)) < MIN_TIME)
+    return (0);
   this->previousTime = time;
+  if (move == -1)
+    move = action;
 
   move_index = 0;
   index = snake->size() - 1;

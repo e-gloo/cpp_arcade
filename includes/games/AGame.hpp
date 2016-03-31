@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 12:42:18 2016 Dylan Coodien
-** Last update Thu Mar 31 15:41:02 2016 Dylqn Coodien
+** Last update Thu Mar 31 23:06:12 2016 Dylqn Coodien
 */
 
 #ifndef AGAME_HPP_
@@ -21,7 +21,7 @@ protected:
   int					sizeY;
   char					**map;
   std::map<int, std::list<void *> >	*entities;
-  long int				previousTime;
+  std::clock_t				previousTime;
 
 public:
   AGame();

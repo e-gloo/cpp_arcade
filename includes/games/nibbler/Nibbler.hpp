@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:53:53 2016 Dylan Coodien
-** Last update Thu Mar 31 15:41:15 2016 Dylqn Coodien
+** Last update Thu Mar 31 23:09:29 2016 Dylqn Coodien
 */
 
 #ifndef NIBBLER_HPP_
@@ -27,7 +27,7 @@
 
 # define POINTS		25
 
-# define MIN_TIME	250
+# define MIN_TIME	100
 
 typedef enum	Snake
   {
@@ -63,6 +63,7 @@ class Nibbler: public AGame
   std::vector<t_snakePosition *>	*snake;
   t_food				*food;
   char					*actions;
+  char					action;
   char					lastAction;
   std::vector<methodPointer_t>		*moves;
   methodPointer_t			lastMove;
