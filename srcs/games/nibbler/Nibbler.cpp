@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-** Last update Thu Mar 31 15:46:15 2016 Dylqn Coodien
+// Last update Thu Mar 31 16:17:43 2016 François Cassin
 */
 
 #include <unistd.h>
@@ -118,7 +118,7 @@ int			Nibbler::play(char move)
   int			move_index;
   char			tyle;
 
-  if ((time - this->previousTime) < MIN_TIME)
+  if ((time - this->previousTime) < MIN_TIME && move == -1)
     return (score);
   timeDiff = time - this->previousTime;
   this->previousTime = time;

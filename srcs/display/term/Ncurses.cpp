@@ -47,16 +47,16 @@ std::string	Ncurses::startGame(IGame &game, std::string const &musicName)
 {
   bool		running = true;
   char		**map;
-  int	key;
+  int		key;
 
   while (running)
     {
       map = game.getMap();
       this->displayMap(map, WIDTH, HEIGHT);
-      key = wgetch(_window);
+      if ((key = wgetch(_window)) == 27)
+	running = false;
       if (game.play(key) == 1)
 	running = false;
-      sleep(1);
     }
   (void)musicName;
   return ("");
