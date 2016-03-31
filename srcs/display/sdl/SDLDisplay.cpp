@@ -62,7 +62,10 @@ void		SDLDisplay::drawCase(int i, int j, char **map)
   rect.y = i * SIZE_PIX;
 
   if (_shapes[map[i][j]].second != NULL)
-    SDL_BlitSurface(_shapes[map[i][j]].second, NULL, _screen, &rect);
+    {
+      SDL_BlitSurface(_shapes[0].second, NULL, _screen, &rect);
+      SDL_BlitSurface(_shapes[map[i][j]].second, NULL, _screen, &rect);
+    }
   else
     {
       Case = SDL_CreateRGBSurface(SDL_HWSURFACE, SIZE_PIX, SIZE_PIX, 32, 0, 0, 0, 0);
@@ -100,7 +103,7 @@ char		SDLDisplay::readKey()
       _keys[SDLK_d] = false;
       return 'd';
     }
-  else if (_exit)
+  else if (_keys[SDLK_ESCAPE] || _exit)
     return (27);
   return (-1);
 }
@@ -125,7 +128,6 @@ void		SDLDisplay::displayMap(char **map, int const sizeX, int const sizeY)
   for (int i = 0; i < sizeY; ++i)
     for (int j = 0; j < sizeX; ++j)
       drawCase(i, j, map);
-  
   SDL_Flip(_screen);
 }
 
