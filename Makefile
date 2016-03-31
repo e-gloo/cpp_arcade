@@ -16,7 +16,7 @@ TERM_FO		= display/term/
 
 SFML_FILES	= $(SFML_FO)SFMLDisplay.cpp
 OPENGL_FILES	= $(OPENGL_FO)*.cpp
-TERM_FILES	= $(TERM_FO)*.cpp
+TERM_FILES	= $(TERM_FO)Ncurses.cpp
 
 SFML_SRCS	= $(SRCS_FO)/$(SFML_FILES)
 OPENGL_SRCS	= $(SRCS_FO)/$(OPENGL_FILES)
@@ -27,9 +27,9 @@ OPENGL_OBJS	= $(OBJS_FO)/$(OPENGL_FILES:.cpp=.o)
 TERM_OBJS	= $(OBJS_FO)/$(TERM_FILES:.cpp=.o)
 
 SFML_FLAGS	+= -L./libs/SFML-2.3.2/lib/ -lsfml-graphics -lsfml-window -lsfml-system
-##SFML_FLAGS	= ./libs/SFML-2.3.2/lib/libsfml-graphics.so.2.3
+##SFML_FLAGS	+= ./libs/SFML-2.3.2/lib/libsfml-graphics.so
 OPENGL_FLAGS	+= -L./libs/
-TERM_FLAGS	+= -L./libs/
+TERM_FLAGS	+= -lncurses
 
 SFML_LIB	= $(LIB_FO)lib_arcade_sfml.so
 OPENGL_LIB	= $(LIB_FO)lib_arcade_opengl.so
@@ -56,11 +56,15 @@ OBJS		= $(SRCS:.cpp=.o)
 
 NAME		= arcade
 
-all:		$(SFML_LIB) $(NIBBLER_LIB) $(NAME)
+all:		$(TERM_LIB) $(NIBBLER_LIB) $(NAME)
 
 $(SFML_LIB):
 		$(CC) -c $(SFML_SRCS) -o $(SFML_OBJS) -fPIC $(CFLAGS)
-		$(CC) $(CFLAGS) $(SFML_FLAGS) -o $(SFML_LIB) $(SFML_OBJS) -shared
+		$(CC) -shared $(CFLAGS) -o $(SFML_LIB) $(SFML_OBJS) $(SFML_FLAGS)
+
+$(TERM_LIB):
+		$(CC) -c $(TERM_SRCS) -o $(TERM_OBJS) -fPIC $(CFLAGS)
+		$(CC) -shared $(CFLAGS) -o $(TERM_LIB) $(TERM_OBJS) $(TERM_FLAGS)
 
 $(NIBBLER_LIB):
 		$(CC) -c $(NIBBLER_SRCS) -o $(NIBBLER_OBJS) -fPIC $(CFLAGS)
@@ -73,12 +77,13 @@ $(NAME):
 
 clean:
 		$(RM) $(OBJS)
-		$(RM) $(SFML_OBJS)
+		$(RM) $(TERM_OBJS)
 		$(RM) $(NIBBLER_OBJS)
+		$(RM) $(AGAME_OBJS)
 
 fclean:		clean
 		$(RM) $(NAME)
-		$(RM) $(SFML_LIB)
+		$(RM) $(TERM_LIB)
 		$(RM) $(NIBBLER_LIB)
 
 re:		fclean all

@@ -5,12 +5,12 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 13:05:12 2016 Dylan Coodien
-** Last update Thu Mar 31 13:50:08 2016 Dylqn Coodien
+// Last update Thu Mar 31 15:23:29 2016 François Cassin
 */
 
-#include "IDisplayManager.hpp"
-#include "AGame.hpp"
-#include "Nibbler.hpp"
+#include "display/IDisplayManager.hpp"
+#include "games/AGame.hpp"
+#include "games/nibbler/Nibbler.hpp"
 
 AGame::AGame()
   :sizeX(0), sizeY(0), map(NULL), entities(NULL), previousTime(std::time(0) * 1000)
@@ -43,8 +43,10 @@ void					AGame::startGame(IDisplayManager &dis)
 
   srand(time(0));
   snake = new Nibbler();
-  dis.setShape(*snake, 0, "map", 0xFF000000, 1);
-  dis.setShape(*snake, -1, "bord", 0xFF00FF00, 1);
-  dis.setShape(*snake, 1, "snake", 0xFFFFFFFF, 1);
-  dis.setShape(*snake, 2, "food", 0xFF0000FF, 1);
+  dis.createWindow(0, 0, "Nibbler");
+  dis.setShape(*snake, 0, "  map", 0xFF000000, 1);
+  dis.setShape(*snake, -1, "X bord", 0xFF00FF00, 1);
+  dis.setShape(*snake, 1, "o snake", 0xFFFFFFFF, 1);
+  dis.setShape(*snake, 2, "x food", 0xFF0000FF, 1);
+  dis.startGame(*snake, "");
 }

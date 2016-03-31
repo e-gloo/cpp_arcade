@@ -5,14 +5,14 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:53:53 2016 Dylan Coodien
-** Last update Thu Mar 31 13:53:17 2016 Dylqn Coodien
+// Last update Thu Mar 31 14:15:28 2016 François Cassin
 */
 
 #ifndef NIBBLER_HPP_
 # define NIBBLER_HPP_
 
 # include <vector>
-# include "AGame.hpp"
+# include "games/AGame.hpp"
 
 # define NB_MOVES	4
 

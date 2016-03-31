@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-** Last update Thu Mar 31 13:52:51 2016 Dylqn Coodien
+// Last update Thu Mar 31 14:27:19 2016 François Cassin
 */
 
 #include <unistd.h>
@@ -245,7 +245,7 @@ void				Nibbler::moveRight(int save_x, int save_y)
 
 extern "C"
 {
-  IGame			*getInstance() {return (new Nibbler); }
+  IGame			*getInstance() {return (new Nibbler()); }
 
   void			whereAmI(std::vector<t_snakePosition *> *snake,
 				 arcade::CommandType commands)

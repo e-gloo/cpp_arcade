@@ -31,6 +31,8 @@ int	main(int ac, char **av)
     exit(1);
   IDisplayManager *manager = creator();
 
+  std::cout << "ok" << std::endl;
+
   gcreator = reinterpret_cast<IGame * (*)()>(dlsym(dlghandle, "getInstance"));
   if (gcreator == NULL)
     exit(1);
@@ -38,7 +40,9 @@ int	main(int ac, char **av)
 
   std::cout << "test" << std::endl;
 
-  manager->startGame(*game, "");
+  //  manager->startGame(*game, "");
+  //manager->createWindow(0, 0, "bonjour");
+  game->startGame(*manager);
 
   delete manager;
   delete game;
