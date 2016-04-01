@@ -53,7 +53,8 @@ static std::string	getPlayerName()
   std::cout << "Please enter your name (10 char Max) : ";
   std::cin.getline(name, 256);
   str = name;
-  str.erase(10);
+  if (str.length() > 10)
+    str.erase(10);
   return (str);
 }
 
