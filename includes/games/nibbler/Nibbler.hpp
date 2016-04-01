@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:53:53 2016 Dylan Coodien
-** Last update Fri Apr  1 16:06:19 2016 Dylqn Coodien
+// Last update Fri Apr  1 19:10:01 2016 François Cassin
 */
 
 #ifndef NIBBLER_HPP_
@@ -79,7 +79,7 @@ class Nibbler: public AGame
 public:
   Nibbler();
   virtual				~Nibbler();
-  virtual void				startGame(IDisplayManager &);
+  virtual void				startGame(IDisplayManager &, std::string const& player);
   virtual int				play(char);
   std::vector<t_snakePosition *>	*getSnake() const;
   int					getScore() const;

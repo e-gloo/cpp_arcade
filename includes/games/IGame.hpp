@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.net>
 ** 
 ** Started on  Tue Mar 15 12:30:52 2016 Dylan Coodien
-// Last update Fri Apr  1 18:24:04 2016 François Cassin
+// Last update Fri Apr  1 19:09:38 2016 François Cassin
 */
 
 #ifndef _IGAME_HPP_
@@ -25,7 +25,7 @@ public:
   virtual int	getSizeY() const = 0;
   virtual int	play(char) = 0;
   virtual char	**getMap() const = 0;
-  virtual void	startGame(IDisplayManager &) = 0;
+  virtual void	startGame(IDisplayManager &, std::string const& player) = 0;
   virtual std::map<int, std::list<void *> > *getEntities() const = 0;
   virtual int	getScore() const = 0;
 };

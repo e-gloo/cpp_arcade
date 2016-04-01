@@ -147,7 +147,7 @@ void		Launcher::launchGame()
 	}
     }
   loadGraphLibrary(_lib);
-  _game->startGame(*_graphLib);
+  _game->startGame(*_graphLib, _player);
   _lastScore = _game->getScore();
   delete _game;
   delete _graphLib;
