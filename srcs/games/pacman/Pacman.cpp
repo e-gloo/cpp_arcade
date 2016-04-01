@@ -5,20 +5,22 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Fri Apr  1 20:10:17 2016 Dylqn Coodien
+** Last update Fri Apr  1 20:30:47 2016 Dylqn Coodien
 */
 
 #include "games/pacman/Pacman.hpp"
-
+#include <iostream>
+#include <fstream>
 Pacman::Pacman()
   :AGame()
 {
+  
   sizeX = WIDTH;
   sizeY = HEIGHT;
   setMap();
-  setPacman();
-  setGhosts();
-  setActions();
+  //setPacman();
+  //setGhosts();
+  //setActions();
   _score = 0;
 }
 
@@ -79,7 +81,7 @@ void				Pacman::startGame(IDisplayManager &dis, std::string const &player)
   (void)player;
   dis.createWindow(WIDTH, HEIGHT, "Pacman");
   dis.setShape(0, "  map", 0xFF000000, "");
-  dis.setShape(-1, "/ bord", 0xFF00FF00, "");
+  dis.setShape(-1, "x bord", 0xFF00FF00, "");
   dis.setShape(1, ". pacgum", 0xFF000000, "");
   dis.setShape(2, "o megafood", 0xFF0000FF, "./resources/snake/food.png");
   dis.setShape(3, "  portal", 0xFF0000FF, "");
@@ -115,6 +117,11 @@ int				Pacman::play(char move)
 
   this->previousTime = time;
   return (0);
+}
+
+int				Pacman::getScore() const
+{
+  return (_score);
 }
 
 int				Pacman::moveUp()
@@ -253,4 +260,9 @@ t_coordinates			*Pacman::Ghosts::getPositions() const
 void				Pacman::Ghosts::move(char *map[32])
 {
   (void)map;
+}
+
+extern "C"
+{
+  IGame			*getInstance() {return (new Pacman()); }
 }

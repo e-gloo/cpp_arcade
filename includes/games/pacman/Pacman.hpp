@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:25:45 2016 Dylqn Coodien
-** Last update Fri Apr  1 20:10:06 2016 Dylqn Coodien
+** Last update Fri Apr  1 20:29:47 2016 Dylqn Coodien
 */
 
 #ifndef PACMAN_HPP_
@@ -146,6 +146,7 @@ public:
   virtual				~Pacman();
   virtual void				startGame(IDisplayManager &, std::string const &);
   virtual int				play(char);
+  virtual int				getScore() const;
 };
 
 #endif /* !PACMAN_HPP_ */
