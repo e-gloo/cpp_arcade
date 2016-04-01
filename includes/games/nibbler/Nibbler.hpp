@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:53:53 2016 Dylan Coodien
-** Last update Fri Apr  1 00:41:24 2016 Dylqn Coodien
+** Last update Fri Apr  1 16:06:19 2016 Dylqn Coodien
 */
 
 #ifndef NIBBLER_HPP_
@@ -82,6 +82,7 @@ public:
   virtual void				startGame(IDisplayManager &);
   virtual int				play(char);
   std::vector<t_snakePosition *>	*getSnake() const;
+  int					getScore() const;
 };
 
 #endif /* !NIBBLER_HPP_ */

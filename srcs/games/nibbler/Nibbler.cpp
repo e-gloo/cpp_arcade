@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-// Last update Fri Apr  1 03:17:38 2016 François Cassin
+** Last update Fri Apr  1 16:07:26 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
@@ -104,7 +104,7 @@ void					Nibbler::startGame(IDisplayManager &dis)
   dis.createWindow(WIDTH, HEIGHT, "Nibbler");
   dis.setShape(0, "  map", 0xFF000000, "");
   dis.setShape(-1, "X bord", 0xFF00FF00, "");
-  dis.setShape(1, "o snake", 0xFFFFFFFF, "");
+  dis.setShape(1, "o snake", 0xFF000000, "");
   dis.setShape(2, ". food", 0xFF0000FF, "./resources/snake/food.png");
   dis.startGame(*this);
 }
@@ -168,6 +168,7 @@ void				Nibbler::moveUp(int save_x, int save_y)
 	  snake->at(snake->size() - 1)->coordinates->x = save_x;
 	  snake->at(snake->size() - 1)->part = Snake::TAIL;
 	  snake->at(snake->size() - 2)->part = Snake::BODY;
+	  score += POINTS;
 	  geneFood();
 	}
       else
@@ -195,6 +196,7 @@ void				Nibbler::moveLeft(int save_x, int save_y)
 	  snake->at(snake->size() - 1)->coordinates->x = save_x;
 	  snake->at(snake->size() - 1)->part = Snake::TAIL;
 	  snake->at(snake->size() - 2)->part = Snake::BODY;
+	  score += POINTS;
 	  geneFood();
 	}
       else
@@ -222,6 +224,7 @@ void				Nibbler::moveDown(int save_x, int save_y)
 	  snake->at(snake->size() - 1)->coordinates->x = save_x;
 	  snake->at(snake->size() - 1)->part = Snake::TAIL;
 	  snake->at(snake->size() - 2)->part = Snake::BODY;
+	  score += POINTS;
 	  geneFood();
 	}
       else
@@ -249,6 +252,7 @@ void				Nibbler::moveRight(int save_x, int save_y)
 	  snake->at(snake->size() - 1)->coordinates->x = save_x;
 	  snake->at(snake->size() - 1)->part = Snake::TAIL;
 	  snake->at(snake->size() - 2)->part = Snake::BODY;
+	  score += POINTS;
 	  geneFood();
 	}
       else
@@ -259,6 +263,11 @@ void				Nibbler::moveRight(int save_x, int save_y)
     }
   else
     (this->*lastMove)(save_x, save_y);
+}
+
+int			Nibbler::getScore() const
+{
+  return (score);
 }
 
 extern "C"
