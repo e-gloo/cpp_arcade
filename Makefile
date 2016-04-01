@@ -4,7 +4,7 @@ RM		= rm -f
 
 CFLAGS		+= -Wall -Werror -Wextra -Wno-unused -I./includes/ --std=c++11
 
-LDFLAGS		+= -ldl
+LDFLAGS		+= -ldl -lncurses
 
 SRCS_FO		= ./srcs
 OBJS_FO		= ./objs
@@ -63,7 +63,7 @@ OBJS		= $(patsubst $(SRCS_FO)/%.cpp,$(OBJS_FO)/%.o, $(SRCS))
 
 NAME		= arcade
 
-all:		$(TERM_LIB) $(SDL_LIB) $(OPENGL_LIB) $(NIBBLER_LIB) $(PACMAN_LIB) $(NAME)
+all:		$(TERM_LIB) $(SDL_LIB) $(OPENGL_LIB) $(NIBBLER_LIB) $(NAME)
 
 $(OBJS_FO)/%.o : $(SRCS_FO)/%.cpp
 		@$(CC) $(CFLAGS) -c $< -o $@

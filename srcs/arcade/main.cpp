@@ -45,13 +45,27 @@
 }
 */
 
+static std::string	getPlayerName()
+{
+  char		name[256];
+  std::string	str;
+
+  std::cout << "Please enter your name (10 char Max) : ";
+  std::cin.getline(name, 256);
+  str = name;
+  str.erase(10);
+  return (str);
+}
+
 int	main(int ac, char **av)
 {
-  Launcher	launch("Charlie");
+
+  std::string	str;
 
   if (ac >= 2)
     {
-      launch.loadGraphLibrary(av[1]);
+      str = getPlayerName();
+      Launcher	launch(str, av[1]);
       launch.initGamesFolder();
       launch.displayMenu();
     }

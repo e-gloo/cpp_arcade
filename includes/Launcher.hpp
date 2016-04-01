@@ -7,29 +7,36 @@
 #include <cstdlib>
 #include <dirent.h>
 #include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <curses.h>
 #include "display/IDisplayManager.hpp"
 #include "games/IGame.hpp"
 
 class Launcher
 {
+  std::string			_lib;
   void				*_libHandle;
   void				*_gameHandle;
   IDisplayManager		*_graphLib;
   IGame				*_game;
-  std::vector<std::string>	_games;
+  std::vector<std::pair<std::string, bool> >	_games;
   std::string			_player;
   int				_lastScore;
   std::string			_lastGame;
 
   std::vector<std::pair<std::string, int> >	getScores(std::string const &game);
   std::string			getShortName(std::string const &name) const;
+  void		loadGame(std::string const &path);
+  void		display(WINDOW *);
+  void		changeCursor(int);
+  void		launchGame();
+  void		loadGraphLibrary(std::string const &path);
 
 public:
-  Launcher(std::string const&player);
+  Launcher(std::string const&player, std::string const &lib);
   virtual ~Launcher();
 
-  void		loadGraphLibrary(std::string const &path);
-  void		loadGame(std::string const &path);
   void		initGamesFolder();
   void		displayMenu();
 };

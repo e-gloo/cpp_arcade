@@ -28,6 +28,9 @@ int		OpenGLDisplay::createWindow(size_t const &length, size_t const &height, std
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   gluOrtho2D(0, _width * SIZE_PIX, 0, _height * SIZE_PIX);
+  SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, 0);
+  //glXSwapIntervalEXT(0);
+  //  SDL_GL_SetSwapInterval(0);
   return (0);
 }
 
@@ -125,7 +128,7 @@ void		OpenGLDisplay::displayMap(char **map, int const sizeX, int const sizeY)
   glLoadIdentity();
 
   glBegin(GL_QUADS);
-  glColor3ub(255, 255, 255);
+  glColor3ub(_shapes[0][0], _shapes[0][1], _shapes[0][2]);
   glVertex2d(-1, -1);
   glVertex2d(-1, 1);
   glVertex2d(1, 1);
@@ -138,8 +141,9 @@ void		OpenGLDisplay::displayMap(char **map, int const sizeX, int const sizeY)
 	if (map[i][j] != 0)
 	  this->drawCase(i, j, map);
       }
+
   //equivalent de SDL_Flip() :
-  glFlush();
+  //  glFinish();
   SDL_GL_SwapBuffers();
 }
 

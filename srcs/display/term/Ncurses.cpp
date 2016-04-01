@@ -15,6 +15,8 @@ Ncurses::~Ncurses()
       wrefresh(_window);
       nodelay(_window, 0);
       echo();
+      wclear(_window);
+      wrefresh(_window);
       delwin(_window);
     }
   endwin();

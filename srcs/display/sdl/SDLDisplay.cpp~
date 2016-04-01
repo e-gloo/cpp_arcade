@@ -1,4 +1,0 @@
-extern "C"
-{
-  IDisplayManager		*getInstance() {return (new SDLDisplay(); }
-}
