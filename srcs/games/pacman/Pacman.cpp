@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Fri Apr  1 20:34:23 2016 Dylqn Coodien
+** Last update Fri Apr  1 21:11:56 2016 Dylqn Coodien
 */
 
 #include "games/pacman/Pacman.hpp"
@@ -17,8 +17,9 @@ Pacman::Pacman()
   sizeY = HEIGHT;
   setMap();
   setPacman();
-  //setGhosts();
-  //setActions();
+  setGhosts();
+  setActions();
+  setMoves();
   _score = 0;
 }
 
@@ -49,8 +50,12 @@ void				Pacman::setGhosts()
 {
   _ghosts = new std::vector<Pacman::Ghosts *>;
   for (int index = 0; index < NB_GHOSTS; ++index)
-    _ghosts->push_back(new Ghosts(Pacman::Ghosts::GhostsMode::BASIC, GHOST_INDEX
+    {
+    _ghosts->push_back(new Ghosts(Pacman::Ghosts::GhostsMode::BASIC, GHOSTS_INDEX
 				  + index, Pacman::Ghosts::GhostsDirection::START));
+    _ghosts->at(index)->setPositions(14 + index, 16);
+    map[16][14 + index] = GHOSTS_INDEX;
+    }
 }
 
 void				Pacman::setActions()
@@ -78,18 +83,18 @@ void				Pacman::startGame(IDisplayManager &dis, std::string const &player)
 {
   (void)player;
   dis.createWindow(WIDTH, HEIGHT, "Pacman");
-  dis.setShape(0, "  map", 0xFF000000, "");
+  dis.setShape(0, "  map", 0xFFFFFFFF, "");
   dis.setShape(-1, "x bord", 0xFF00FF00, "");
-  dis.setShape(1, ". pacgum", 0xFF000000, "");
+  dis.setShape(1, ". pacgum", 0xFF000000, "./resources/pacman/coins.png");
   dis.setShape(2, "o megafood", 0xFF0000FF, "./resources/snake/food.png");
   dis.setShape(3, "  portal", 0xFF0000FF, "");
-  dis.setShape(4, "  pacman", 0xFFFFFFFF, "");
+  dis.setShape(4, "  pacman", 0xFF000000, "");
+  dis.setShape(5, "  ghost", 0xFFAEAEAE, "");
   dis.startGame(*this);
 }
 
 int				Pacman::play(char move)
 {
-  return (0);
   std::clock_t		time = std::clock();
   int			move_index;
 
@@ -99,7 +104,6 @@ int				Pacman::play(char move)
     return (0);
   if (move == -1)
     move = _action;
-
   move_index = 0;
 
   while (_actions[move_index] != move && move_index < NB_MOVES)
@@ -109,9 +113,10 @@ int				Pacman::play(char move)
     (this->*(_moves->at(move_index)))();
   else
     (this->*_lastMove)();
-
+  /*
   for (int index = 0; index < NB_GHOSTS; ++index)
     _ghosts->at(index)->move(map);
+  */
 
   this->previousTime = time;
   return (0);
@@ -126,8 +131,11 @@ int				Pacman::moveUp()
 {
   int			returnVal = 0;
 
-  if ((returnVal = move('d', 'q', 'z', _pacman->y - 1, _pacman->x)) < 0)
+  if ((returnVal = move(_pacman->y -1, _pacman->x)) == 1
+      && _lastMove != &Pacman::moveUp)
     return ((this->*_lastMove)());
+  else if (returnVal == 1 && _lastMove == &Pacman::moveUp)
+    return (returnVal);
   _lastMove = &Pacman::moveUp;
   if (returnVal == 0)
     {
@@ -142,8 +150,11 @@ int				Pacman::moveLeft()
 {
   int			returnVal = 0;
 
-  if ((returnVal = move('z', 's', 'q', _pacman->y, _pacman->x - 1)) < 0)
+  if ((returnVal = move(_pacman->y, _pacman->x - 1)) == 1
+      && _lastMove != &Pacman::moveLeft)
     return ((this->*_lastMove)());
+  else if (returnVal == 1 && _lastMove == &Pacman::moveLeft)
+    return (returnVal);
   _lastMove = &Pacman::moveLeft;
   if (returnVal == 0)
     {
@@ -158,8 +169,11 @@ int				Pacman::moveDown()
 {
   int			returnVal = 0;
 
-  if ((returnVal = move('q', 'd', 's', _pacman->y + 1, _pacman->x)) < 0)
+  if ((returnVal = move(_pacman->y + 1, _pacman->x)) == 1
+      && _lastMove != &Pacman::moveDown)
     return ((this->*_lastMove)());
+  else if (returnVal == 1 && _lastMove == &Pacman::moveDown)
+    return (returnVal);
   _lastMove = &Pacman::moveDown;
   if (returnVal == 0)
     {
@@ -174,8 +188,11 @@ int				Pacman::moveRight()
 {
   int			returnVal = 0;
 
-  if ((returnVal = move('z', 's', 'd', _pacman->y, _pacman->x + 1)) < 0)
+  if ((returnVal = move(_pacman->y, _pacman->x + 1)) == 1
+      && _lastMove != &Pacman::moveRight)
     return ((this->*_lastMove)());
+  else if (returnVal == 1 && _lastMove == &Pacman::moveRight)
+    return (returnVal);
   _lastMove = &Pacman::moveRight;
   if (returnVal == 0)
     {
@@ -186,25 +203,19 @@ int				Pacman::moveRight()
   return (returnVal);
 }
 
-int				Pacman::move(const char lastact1, const char lastact2,
-					     const char lastact3, const int y, const int x)
+int				Pacman::move(const int y, const int x)
 {
-  if (_lastAction == lastact1 || _lastAction == lastact2 || _lastAction == lastact3)
+  if (map[y][x] == PACGUM)
+    _score += POINTS;
+  else if (map[y][x] == MEGA_PACGUM)
     {
-      if (map[y][x] == PACGUM)
-	_score += POINTS;
-      else if (map[y][x] == MEGA_PACGUM)
-	{
-	  for (int index = 0; index < NB_GHOSTS; ++index)
-	    _ghosts->at(index)->setGhostsMode(Pacman::Ghosts::GhostsMode::RUNAWAY);
-	  _score += MEGA_POINTS;
-	}
-      else if (map[y][x] == BORDER)
-	return (1);
-      _lastAction = lastact3;
-      return (0);
+      for (int index = 0; index < NB_GHOSTS; ++index)
+	_ghosts->at(index)->setGhostsMode(Pacman::Ghosts::GhostsMode::RUNAWAY);
+      _score += MEGA_POINTS;
     }
-  return (-1);
+  else if (map[y][x] == BORDER)
+    return (1);
+  return (0);
 }
 
 Pacman::Ghosts::Ghosts(const GhostsMode &mode, const int &mapIndex,

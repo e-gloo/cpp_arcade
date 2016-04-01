@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:25:45 2016 Dylqn Coodien
-** Last update Fri Apr  1 20:36:05 2016 Dylqn Coodien
+** Last update Fri Apr  1 20:55:00 2016 Dylqn Coodien
 */
 
 #ifndef PACMAN_HPP_
@@ -25,6 +25,7 @@
 # define MEGA_PACGUM	2
 # define PORTAL		3
 # define PACMAN		4
+# define GHOSTS_INDEX	5
 
 # define POINTS		25
 # define MEGA_POINTS	100
@@ -35,8 +36,6 @@
 # define MIN_TIME	100
 
 # define NB_GHOSTS	4
-
-# define GHOST_INDEX	5
 
 typedef struct	s_coordinates
 {
@@ -138,8 +137,7 @@ class Pacman: public AGame
   int					moveLeft();
   int					moveDown();
   int					moveRight();
-  int					move(const char lastact1, const char lastact2,
-					     const char lastact3, const int y, const int x);
+  int					move(const int y, const int x);
 
 public:
   Pacman();
