@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 12:42:18 2016 Dylan Coodien
-** Last update Thu Mar 31 23:06:12 2016 Dylqn Coodien
+** Last update Fri Apr  1 19:13:51 2016 Dylqn Coodien
 */
 
 #ifndef AGAME_HPP_
@@ -29,7 +29,7 @@ public:
   virtual int	getSizeX() const;
   virtual int	getSizeY() const;
   virtual char	**getMap() const;
-  virtual void	startGame(IDisplayManager &) = 0;
+  virtual void	startGame(IDisplayManager &, std::string const &) = 0;
   virtual std::map<int, std::list<void *> > *getEntities() const;
   virtual int	play(char) = 0;
 };
