@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Fri Apr  1 19:22:18 2016 Dylqn Coodien
+** Last update Fri Apr  1 20:10:17 2016 Dylqn Coodien
 */
 
 #include "games/pacman/Pacman.hpp"
@@ -40,6 +40,9 @@ void				Pacman::setMap()
 void				Pacman::setPacman()
 {
   _pacman = new t_coordinates;
+  _pacman->y = 15;
+  _pacman->x = 15;
+  map[_pacman->y][_pacman->x] = PACMAN;
 }
 
 void				Pacman::setGhosts()
@@ -80,11 +83,13 @@ void				Pacman::startGame(IDisplayManager &dis, std::string const &player)
   dis.setShape(1, ". pacgum", 0xFF000000, "");
   dis.setShape(2, "o megafood", 0xFF0000FF, "./resources/snake/food.png");
   dis.setShape(3, "  portal", 0xFF0000FF, "");
+  dis.setShape(4, "  pacman", 0xFFFFFFFF, "");
   dis.startGame(*this);
 }
 
 int				Pacman::play(char move)
 {
+  return (0);
   std::clock_t		time = std::clock();
   int			move_index;
 
@@ -104,6 +109,9 @@ int				Pacman::play(char move)
     (this->*(_moves->at(move_index)))();
   else
     (this->*_lastMove)();
+
+  for (int index = 0; index < NB_GHOSTS; ++index)
+    _ghosts->at(index)->move(map);
 
   this->previousTime = time;
   return (0);
@@ -184,8 +192,10 @@ int				Pacman::move(const char lastact1, const char lastact2,
 	{
 	  for (int index = 0; index < NB_GHOSTS; ++index)
 	    _ghosts->at(index)->setGhostsMode(Pacman::Ghosts::GhostsMode::RUNAWAY);
-	  _score += POINTS;
+	  _score += MEGA_POINTS;
 	}
+      else if (map[y][x] == BORDER)
+	return (1);
       _lastAction = lastact3;
       return (0);
     }
@@ -240,6 +250,7 @@ t_coordinates			*Pacman::Ghosts::getPositions() const
   return (_positions);
 }
 
-void				Pacman::Ghosts::move()
+void				Pacman::Ghosts::move(char *map[32])
 {
+  (void)map;
 }
