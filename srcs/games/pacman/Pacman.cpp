@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Fri Apr  1 19:14:28 2016 Dylqn Coodien
+** Last update Fri Apr  1 19:22:18 2016 Dylqn Coodien
 */
 
 #include "games/pacman/Pacman.hpp"
@@ -73,6 +73,7 @@ void				Pacman::setMoves()
 
 void				Pacman::startGame(IDisplayManager &dis, std::string const &player)
 {
+  (void)player;
   dis.createWindow(WIDTH, HEIGHT, "Pacman");
   dis.setShape(0, "  map", 0xFF000000, "");
   dis.setShape(-1, "/ bord", 0xFF00FF00, "");
