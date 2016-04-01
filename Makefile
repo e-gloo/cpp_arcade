@@ -87,7 +87,8 @@ $(NIBBLER_LIB):
 
 $(PACMAN_LIB):
 		$(CC) -c $(PACMAN_SRCS) -o $(PACMAN_OBJS) -fPIC $(CFLAGS)
-		$(CC) $(CFLAGS) -o $(PACMAN_LIB) $(PACMAN_OBJS) -shared
+		$(CC) -c $(AGAME_SRCS) -o $(AGAME_OBJS) -fPIC $(CFLAGS)
+		$(CC) $(CFLAGS) -o $(PACMAN_LIB) $(PACMAN_OBJS) $(AGAME_OBJS) -shared
 
 $(NAME):	$(OBJS)
 		$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LDFLAGS)
