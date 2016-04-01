@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-** Last update Thu Mar 31 23:12:24 2016 Dylqn Coodien
+** Last update Fri Apr  1 00:42:21 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
@@ -54,7 +54,7 @@ void			Nibbler::initMap()
 	      || x == 0 || x == sizeX - 1)
 	    map[y][x] = BORDER;
 	  else
-	    map[y][x] = EMPT;
+	    map[y][x] = EMPTY_SPACE;
 	}
     }
 }
@@ -86,7 +86,7 @@ void			Nibbler::geneFood()
   int			y = 0;
   int			x = 0;
 
-  while (map[y][x] != EMPT)
+  while (map[y][x] != EMPTY_SPACE)
     {
       x = (rand() % sizeX);
       y = (rand() % sizeY);
@@ -171,7 +171,7 @@ void				Nibbler::moveUp(int save_x, int save_y)
 	  geneFood();
 	}
       else
-	map[save_y][save_x] = EMPT;
+	map[save_y][save_x] = EMPTY_SPACE;
       snake->at(0)->coordinates->y -= 1;
       lastAction = 'z';
       lastMove = &Nibbler::moveUp;
@@ -198,7 +198,7 @@ void				Nibbler::moveLeft(int save_x, int save_y)
 	  geneFood();
 	}
       else
-	map[save_y][save_x] = EMPT;
+	map[save_y][save_x] = EMPTY_SPACE;
       snake->at(0)->coordinates->x -= 1;
       lastAction = 'q';
       lastMove = &Nibbler::moveLeft;
@@ -225,7 +225,7 @@ void				Nibbler::moveDown(int save_x, int save_y)
 	  geneFood();
 	}
       else
-	map[save_y][save_x] = EMPT;
+	map[save_y][save_x] = EMPTY_SPACE;
       snake->at(0)->coordinates->y += 1;
       lastAction = 's';
       lastMove = &Nibbler::moveDown;
@@ -252,7 +252,7 @@ void				Nibbler::moveRight(int save_x, int save_y)
 	  geneFood();
 	}
       else
-	map[save_y][save_x] = EMPT;
+	map[save_y][save_x] = EMPTY_SPACE;
       snake->at(0)->coordinates->x += 1;
       lastAction = 'd';
       lastMove = &Nibbler::moveRight;

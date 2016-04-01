@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:53:53 2016 Dylan Coodien
-** Last update Thu Mar 31 23:09:29 2016 Dylqn Coodien
+** Last update Fri Apr  1 00:41:24 2016 Dylqn Coodien
 */
 
 #ifndef NIBBLER_HPP_
@@ -18,7 +18,7 @@
 # define NB_MOVES	4
 
 # define BORDER		-1
-# define EMPT		0
+# define EMPTY_SPACE	0
 # define SNAKE		1
 # define FOOD		2
 
