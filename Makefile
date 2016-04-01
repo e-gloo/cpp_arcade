@@ -36,18 +36,23 @@ TERM_LIB	= $(LIB_FO)lib_arcade_term.so
 
 GAME_FO		= ./games/
 NIBBLER_FO	= games/nibbler/
+PACMAN_FO	= games/pacman/
 
 AGAME_SRCS	= $(SRCS_FO)/games/AGame.cpp
 
 AGAME_OBJS	= $(OBJS_FO)/games/AGame.o
 
 NIBBLER_FILES	= $(NIBBLER_FO)Nibbler.cpp
+PACMAN_FILES	= $(PACMAN_FO)Pacman.cpp
 
 NIBBLER_SRCS	= $(SRCS_FO)/$(NIBBLER_FILES)
+PACMAN_SRCS	= $(SRCS_FO)/$(PACMAN_FILES)
 
 NIBBLER_OBJS	= $(OBJS_FO)/$(NIBBLER_FILES:.cpp=.o)
+PACMAN_OBJS	= $(OBJS_FO)/$(PACMAN_FILES:.cpp=.o)
 
 NIBBLER_LIB	= $(GAME_FO)lib_arcade_nibbler.so
+PACMAN_LIB	= $(GAME_FO)lib_arcade_pacman.so
 
 SRCS		= main.cpp
 
@@ -74,6 +79,10 @@ $(NIBBLER_LIB):
 		$(CC) -c $(AGAME_SRCS) -o $(AGAME_OBJS) -fPIC $(CFLAGS)
 		$(CC) $(CFLAGS) -o $(NIBBLER_LIB) $(NIBBLER_OBJS) $(AGAME_OBJS) -shared
 
+$(PACMAN_LIB):
+		$(CC) -c $(PACMAN_SRCS) -o $(PACMAN_OBJS) -fPIC $(CFLAGS)
+		$(CC) $(CFLAGS) -o $(PACMAN_LIB) $(PACMAN_OBJS) -shared
+
 $(NAME):
 		$(CC) -c $(SRCS) -o $(OBJS) $(CFLAGS)
 		$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LDFLAGS)
@@ -84,6 +93,7 @@ clean:
 		$(RM) $(SDL_OBJS)
 		$(RM) $(OPENGL_OBJS)
 		$(RM) $(NIBBLER_OBJS)
+		$(RM) $(PACMAN_OBJS)
 		$(RM) $(AGAME_OBJS)
 
 fclean:		clean
@@ -92,5 +102,6 @@ fclean:		clean
 		$(RM) $(SDL_LIB)
 		$(RM) $(OPENGL_LIB)
 		$(RM) $(NIBBLER_LIB)
+		$(RM) $(PACMAN_LIB)
 
 re:		fclean all
