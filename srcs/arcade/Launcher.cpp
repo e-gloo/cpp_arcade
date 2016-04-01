@@ -125,10 +125,11 @@ void		Launcher::changeCursor(int i)
   j = 0;
   while (j < (int)_games.size())
     {
-      if (_games.at(j).second == true && (j + i) >= 0 && (j + i) < (int)_games.size())
+      if (_games[j].second == true && (j + i) >= 0 && (j + i) < (int)_games.size())
 	{
-	  _games.at(j).second = false;
-	  _games.at(j+i).second = true;
+	  _games[j].second = false;
+	  _games[j + i].second = true;
+	  return;
 	}
       ++j;
     }
