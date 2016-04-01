@@ -138,6 +138,7 @@ int		SDLDisplay::setShape(int const tileType, std::string const &shape, unsigned
   (void)shape;
   img = NULL;
   _shapes[tileType].first = color;
+  IMG_Init(IMG_INIT_PNG | IMG_INIT_PNG);
   if (!textureName.empty())
     if ((img = IMG_Load(textureName.c_str())) == NULL)
       std::cerr << "IMG_Load : " << SDL_GetError() << std::endl;

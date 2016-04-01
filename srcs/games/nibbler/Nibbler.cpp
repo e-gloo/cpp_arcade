@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-** Last update Thu Mar 31 23:12:24 2016 Dylqn Coodien
+// Last update Fri Apr  1 00:44:46 2016 François Cassin
 */
 
 #include <unistd.h>
@@ -102,10 +102,10 @@ std::vector<t_snakePosition *>		*Nibbler::getSnake() const
 void					Nibbler::startGame(IDisplayManager &dis)
 {
   dis.createWindow(WIDTH, HEIGHT, "Nibbler");
-  dis.setShape(0, "  map", 0xFF000000, "");
-  dis.setShape(-1, "X bord", 0xFF00FF00, "");
-  dis.setShape(1, "o snake", 0xFFFFFFFF, "");
-  dis.setShape(2, ". food", 0xFF0000FF, "");
+  dis.setShape(0, "  map", 0xFFFFFFFF, "");//"./resources/snake/back.jpg");
+  dis.setShape(-1, "X bord", 0xFF00FF00, "");//"./resources/snake/wall.jpg");
+  dis.setShape(1, "o snake", 0xFF000000, "");
+  dis.setShape(2, ". food", 0xFF0000FF, "./resources/snake/food.png");
   dis.startGame(*this);
 }
 

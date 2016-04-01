@@ -15,7 +15,7 @@ OPENGL_FO	= display/opengl/
 TERM_FO		= display/term/
 
 SDL_FILES	= $(SDL_FO)SDLDisplay.cpp
-OPENGL_FILES	= $(OPENGL_FO)*.cpp
+OPENGL_FILES	= $(OPENGL_FO)OpenGLDisplay.cpp
 TERM_FILES	= $(TERM_FO)Ncurses.cpp
 
 SDL_SRCS	= $(SRCS_FO)/$(SDL_FILES)
@@ -27,7 +27,7 @@ OPENGL_OBJS	= $(OBJS_FO)/$(OPENGL_FILES:.cpp=.o)
 TERM_OBJS	= $(OBJS_FO)/$(TERM_FILES:.cpp=.o)
 
 SDL_FLAGS	+= -lSDL -lSDL_image
-OPENGL_FLAGS	+= -L./libs/
+OPENGL_FLAGS	+= -lSDL -lGL -lGLU
 TERM_FLAGS	+= -lncurses
 
 SDL_LIB		= $(LIB_FO)lib_arcade_sdl.so
@@ -55,7 +55,7 @@ OBJS		= $(SRCS:.cpp=.o)
 
 NAME		= arcade
 
-all:		$(TERM_LIB) $(SDL_LIB) $(NIBBLER_LIB) $(NAME)
+all:		$(TERM_LIB) $(SDL_LIB) $(OPENGL_LIB) $(NIBBLER_LIB) $(NAME)
 
 $(SDL_LIB):
 		$(CC) -c $(SDL_SRCS) -o $(SDL_OBJS) -fPIC $(CFLAGS)
@@ -64,6 +64,10 @@ $(SDL_LIB):
 $(TERM_LIB):
 		$(CC) -c $(TERM_SRCS) -o $(TERM_OBJS) -fPIC $(CFLAGS)
 		$(CC) -shared $(CFLAGS) -o $(TERM_LIB) $(TERM_OBJS) $(TERM_FLAGS)
+
+$(OPENGL_LIB):
+		$(CC) -c $(OPENGL_SRCS) -o $(OPENGL_OBJS) -fPIC $(CFLAGS)
+		$(CC) -shared $(CFLAGS) -o $(OPENGL_LIB) $(OPENGL_OBJS) $(OPENGL_FLAGS)
 
 $(NIBBLER_LIB):
 		$(CC) -c $(NIBBLER_SRCS) -o $(NIBBLER_OBJS) -fPIC $(CFLAGS)
@@ -78,6 +82,7 @@ clean:
 		$(RM) $(OBJS)
 		$(RM) $(TERM_OBJS)
 		$(RM) $(SDL_OBJS)
+		$(RM) $(OPENGL_OBJS)
 		$(RM) $(NIBBLER_OBJS)
 		$(RM) $(AGAME_OBJS)
 
@@ -85,6 +90,7 @@ fclean:		clean
 		$(RM) $(NAME)
 		$(RM) $(TERM_LIB)
 		$(RM) $(SDL_LIB)
+		$(RM) $(OPENGL_LIB)
 		$(RM) $(NIBBLER_LIB)
 
 re:		fclean all

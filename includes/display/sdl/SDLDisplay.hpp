@@ -6,7 +6,7 @@
 #include <map>
 #include "display/IDisplayManager.hpp"
 
-#define SIZE_PIX 20
+#define SIZE_PIX 32
 
 class SDLDisplay : public IDisplayManager
 {
