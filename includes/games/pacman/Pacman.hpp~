@@ -1,0 +1,27 @@
+/*
+** Pacman.hpp for Pacman in /home/coodie_d/rendu/cpp/B4/cpp_arcade
+** 
+** Made by Dylqn Coodien
+** Login   <coodie_d@epitech.eu>
+** 
+** Started on  Fri Apr  1 00:25:45 2016 Dylqn Coodien
+** Last update Fri Apr  1 00:40:26 2016 Dylqn Coodien
+*/
+
+#ifndef PACMAN_HPP_
+# define PACMAN_HPP_
+
+# include "games/AGame.hpp"
+# include "display/IDisplayManager.hpp"
+
+class Pacman
+{
+public:
+Nibbler();
+  virtual				~Nibbler();
+  virtual void				startGame(IDisplayManager &);
+  virtual int				play(char);
+  std::vector<t_snakePosition *>	*getSnake() const;
+};
+
+#endif /* !PACMAN_HPP_ */
