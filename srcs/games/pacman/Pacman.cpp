@@ -5,20 +5,18 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Fri Apr  1 20:30:47 2016 Dylqn Coodien
+** Last update Fri Apr  1 20:34:23 2016 Dylqn Coodien
 */
 
 #include "games/pacman/Pacman.hpp"
-#include <iostream>
-#include <fstream>
+
 Pacman::Pacman()
   :AGame()
 {
-  
   sizeX = WIDTH;
   sizeY = HEIGHT;
   setMap();
-  //setPacman();
+  setPacman();
   //setGhosts();
   //setActions();
   _score = 0;
@@ -42,8 +40,8 @@ void				Pacman::setMap()
 void				Pacman::setPacman()
 {
   _pacman = new t_coordinates;
-  _pacman->y = 15;
-  _pacman->x = 15;
+  _pacman->y = 18;
+  _pacman->x = 16;
   map[_pacman->y][_pacman->x] = PACMAN;
 }
 
