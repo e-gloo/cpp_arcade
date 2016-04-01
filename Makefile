@@ -14,6 +14,8 @@ SDL_FO		= display/sdl/
 OPENGL_FO	= display/opengl/
 TERM_FO		= display/term/
 
+ARCADE_FO	= arcade/
+
 SDL_FILES	= $(SDL_FO)SDLDisplay.cpp
 OPENGL_FILES	= $(OPENGL_FO)OpenGLDisplay.cpp
 TERM_FILES	= $(TERM_FO)Ncurses.cpp
@@ -54,13 +56,17 @@ PACMAN_OBJS	= $(OBJS_FO)/$(PACMAN_FILES:.cpp=.o)
 NIBBLER_LIB	= $(GAME_FO)lib_arcade_nibbler.so
 PACMAN_LIB	= $(GAME_FO)lib_arcade_pacman.so
 
-SRCS		= main.cpp
+SRCS		= $(SRCS_FO)/$(ARCADE_FO)main.cpp \
+		  $(SRCS_FO)/$(ARCADE_FO)Launcher.cpp
 
-OBJS		= $(SRCS:.cpp=.o)
+OBJS		= $(patsubst $(SRCS_FO)/%.cpp,$(OBJS_FO)/%.o, $(SRCS)) 
 
 NAME		= arcade
 
-all:		$(TERM_LIB) $(SDL_LIB) $(OPENGL_LIB) $(NIBBLER_LIB) $(NAME)
+all:		$(TERM_LIB) $(SDL_LIB) $(OPENGL_LIB) $(NIBBLER_LIB) $(PACMAN_LIB) $(NAME)
+
+$(OBJS_FO)/%.o : $(SRCS_FO)/%.cpp
+		@$(CC) $(CFLAGS) -c $< -o $@
 
 $(SDL_LIB):
 		$(CC) -c $(SDL_SRCS) -o $(SDL_OBJS) -fPIC $(CFLAGS)
@@ -83,8 +89,7 @@ $(PACMAN_LIB):
 		$(CC) -c $(PACMAN_SRCS) -o $(PACMAN_OBJS) -fPIC $(CFLAGS)
 		$(CC) $(CFLAGS) -o $(PACMAN_LIB) $(PACMAN_OBJS) -shared
 
-$(NAME):
-		$(CC) -c $(SRCS) -o $(OBJS) $(CFLAGS)
+$(NAME):	$(OBJS)
 		$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LDFLAGS)
 
 clean:
