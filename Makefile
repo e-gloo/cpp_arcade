@@ -59,7 +59,7 @@ PACMAN_LIB	= $(GAME_FO)lib_arcade_pacman.so
 SRCS		= $(SRCS_FO)/$(ARCADE_FO)main.cpp \
 		  $(SRCS_FO)/$(ARCADE_FO)Launcher.cpp
 
-OBJS		= $(patsubst $(SRCS_FO)/%.cpp,$(OBJS_FO)/%.o, $(SRCS)) 
+OBJS		= $(patsubst $(SRCS_FO)/%.cpp,$(OBJS_FO)/%.o, $(SRCS))
 
 NAME		= arcade
 
@@ -86,7 +86,7 @@ $(NIBBLER_LIB):
 		$(CC) $(CFLAGS) -o $(NIBBLER_LIB) $(NIBBLER_OBJS) $(AGAME_OBJS) -shared
 
 $(PACMAN_LIB):
-		$(CC) -c $(PACMAN_SRCS) -o $(PACMAN_OBJS) -fPIC $(CFLAGS)
+		$(CC) -c $(PACMAN_SRCS) -o $(PACMAN_OBJS) -fPIC $(CFLAGS) -lm
 		$(CC) -c $(AGAME_SRCS) -o $(AGAME_OBJS) -fPIC $(CFLAGS)
 		$(CC) $(CFLAGS) -o $(PACMAN_LIB) $(PACMAN_OBJS) $(AGAME_OBJS) -shared
 
