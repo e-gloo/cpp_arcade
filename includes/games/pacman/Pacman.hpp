@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:25:45 2016 Dylqn Coodien
-** Last update Fri Apr  1 20:55:00 2016 Dylqn Coodien
+** Last update Sat Apr  2 03:48:35 2016 Dylqn Coodien
 */
 
 #ifndef PACMAN_HPP_
@@ -34,7 +34,7 @@
 # define HEIGHT		32
 
 # define MIN_TIME	100
-
+# define EFFECT_TIME	1000
 # define NB_GHOSTS	4
 
 typedef struct	s_coordinates
@@ -57,8 +57,7 @@ class Pacman: public AGame
 
     enum GhostsDirection
       {
-	START = 3,
-	UP,
+	UP = 3,
 	DOWN,
 	LEFT,
 	RIGHT
@@ -69,6 +68,7 @@ class Pacman: public AGame
     int			_mapIndex;
     GhostsDirection	_direction;
     t_coordinates	*_positions;
+    int			_prevTyle;
 
   public:
     Ghosts(const GhostsMode &mode, const int &mapIndex, const GhostsDirection &direction);
@@ -80,7 +80,13 @@ class Pacman: public AGame
     GhostsDirection	getGhostsDirection() const;
     void		setPositions(const int &x, const int &y);
     t_coordinates	*getPositions() const;
-    void		move(char *map[32]);
+    int			move(char *map[32]);
+    int			moveUp(char *map[32]);
+    int			moveDown(char *map[32]);
+    int			moveLeft(char *map[32]);
+    int			moveRight(char *map[32]);
+    int			leftOrRight(char *map[32]);
+    int			upOrDown(char *map[32]);
   };
 
   char			map_[HEIGHT][WIDTH] =
@@ -127,17 +133,23 @@ class Pacman: public AGame
   char					_lastAction;
   std::vector<methodPointer_t>		*_moves;
   methodPointer_t			_lastMove;
+  bool					_megaPacgumEffect;
+  std::clock_t				_effectTime;
+  std::clock_t				_startGhostsTime;
 
   void					setMap();
   void					setPacman();
   void					setGhosts();
   void					setActions();
   void					setMoves();
+  int					whichMoves(const char move);
+  int					moveGhosts(const std::clock_t time);
   int					moveUp();
   int					moveLeft();
   int					moveDown();
   int					moveRight();
   int					move(const int y, const int x);
+  int					againstGhosts(const int y, const int x);
 
 public:
   Pacman();

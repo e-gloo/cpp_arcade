@@ -5,11 +5,10 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 13:05:12 2016 Dylan Coodien
-** Last update Thu Mar 31 23:05:58 2016 Dylqn Coodien
+** Last update Sat Apr  2 03:43:38 2016 Dylqn Coodien
 */
 
 #include "games/AGame.hpp"
-#include "games/nibbler/Nibbler.hpp"
 
 AGame::AGame()
   :sizeX(0), sizeY(0), map(NULL), entities(NULL), previousTime(std::clock())
