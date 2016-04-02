@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Sat Apr  2 03:53:15 2016 Dylqn Coodien
+// Last update Sat Apr  2 17:21:19 2016 François Cassin
 */
 
 #include <unistd.h>
@@ -294,7 +294,7 @@ int				Pacman::againstGhosts(const int y, const int x)
   else if (_ghosts->at(index)->getGhostsMode() == Ghosts::GhostsMode::RUNAWAY)
     {
       _ghosts->at(index)->setGhostsMode(Ghosts::GhostsMode::EYESREMAINING);
-      _score += MEGA_PACGUM;
+      _score += MEGA_POINTS;
     }
   return (1);
 }
@@ -413,7 +413,7 @@ int				Pacman::Ghosts::moveLeft(char *map[32])
     {
       map[_positions->y][_positions->x] = _prevTyle;
       _prevTyle = map[_positions->y][_positions->x - 1];
-      map[_positions->y + 1][_positions->x - 1] = _mapIndex;
+      map[_positions->y][_positions->x - 1] = _mapIndex;
       _positions->x -= 1;
       _direction = GhostsDirection::LEFT;
       return (0);
@@ -427,7 +427,7 @@ int				Pacman::Ghosts::moveRight(char *map[32])
     {
       map[_positions->y][_positions->x] = _prevTyle;
       _prevTyle = map[_positions->y][_positions->x + 1];
-      map[_positions->y + 1][_positions->x + 1] = _mapIndex;
+      map[_positions->y][_positions->x + 1] = _mapIndex;
       _positions->x += 1;
       _direction = GhostsDirection::RIGHT;
       return (0);
