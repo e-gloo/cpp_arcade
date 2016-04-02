@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Sat Apr  2 21:22:02 2016 Dylqn Coodien
+** Last update Sat Apr  2 21:37:27 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
@@ -447,7 +447,6 @@ void				Pacman::Ghosts::findTarget(char *map[32],
   double		distance = 10000;
   double		ret;
   t_coordinates		*ptr;
-  int			random = rand() % 100;
 
   if (map[a.y][a.x] != BORDER && ((a.y != 13 || (a.x != 15 && a.x != 16))) &&
       (ret = sqrt(pow((double)(a.x - x), 2) + pow((double)(a.y - y), 2))) < distance)
@@ -455,23 +454,17 @@ void				Pacman::Ghosts::findTarget(char *map[32],
       distance = ret;
       ptr = &a;
     }
-  if (map[b.y][b.x] != BORDER && ((b.y != 13 || (b.x != 15 && b.x != 16))) &&
+  if (map[b.y][b.x] != BORDER && ((a.y != 13 || (a.x != 15 && a.x != 16))) &&
       (ret = sqrt(pow((double)(b.x - x), 2) + pow((double)(b.y - y), 2))) < distance)
     {
-      if (distance != 10000 && random != 0)
-	{
-	  distance = ret;
-	  ptr = &b;
-	}
+      distance = ret;
+      ptr = &b;
     }
-  if (map[c.y][c.x] != BORDER && ((c.y != 13 || (c.x != 15 && c.x != 16))) &&
+  if (map[c.y][c.x] != BORDER && ((a.y != 13 || (a.x != 15 && a.x != 16))) &&
       (ret = sqrt(pow((double)(c.x - x), 2) + pow((double)(c.y - y), 2))) < distance)
     {
-      if (distance != 10000 && random != 0)
-	{
-	  distance = ret;
-	  ptr = &c;
-	}
+      distance = ret;
+      ptr = &c;
     }
 
   changeDirections(ptr);
@@ -483,6 +476,7 @@ void				Pacman::Ghosts::getDirections(char *map[32],
   t_coordinates		a;
   t_coordinates		b;
   t_coordinates		c;
+  int			random = rand() % 10;
 
   if (((_direction == UP || _direction == DOWN) &&
       (map[_positions->y][_positions->x - 1] != BORDER ||
@@ -527,6 +521,8 @@ void				Pacman::Ghosts::getDirections(char *map[32],
 	  c.x = _positions->x;
 	  c.y = _positions->y + 1;
 	}
+      //if (random == 9)
+      //findTarget(map, 16, 16, a, b, c);
       if (_mode != GhostsMode::EYESREMAINING && _positions->x >= 13 && _positions->x <= 18 && _positions->y >= 13 && _positions->y <= 16)
 	findTarget(map, 15, 12, a, b, c);
       else if (_mode == GhostsMode::BASIC)
