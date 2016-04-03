@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:53:53 2016 Dylan Coodien
-// Last update Fri Apr  1 19:10:01 2016 François Cassin
+** Last update Sun Apr  3 19:14:46 2016 Dylqn Coodien
 */
 
 #ifndef NIBBLER_HPP_
@@ -67,6 +67,7 @@ class Nibbler: public AGame
   char					lastAction;
   std::vector<methodPointer_t>		*moves;
   methodPointer_t			lastMove;
+  std::string				_player;
 
   void					initMap();
   void					initSnake();
@@ -75,6 +76,7 @@ class Nibbler: public AGame
   void					moveLeft(int, int);
   void					moveDown(int, int);
   void					moveRight(int, int);
+  void					addScore() const;
 
 public:
   Nibbler();

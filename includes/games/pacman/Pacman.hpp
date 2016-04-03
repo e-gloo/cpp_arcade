@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:25:45 2016 Dylqn Coodien
-** Last update Sun Apr  3 18:51:43 2016 Dylqn Coodien
+** Last update Sun Apr  3 19:25:17 2016 Dylqn Coodien
 */
 
 #ifndef PACMAN_HPP_
@@ -149,6 +149,7 @@ class Pacman: public AGame
   bool					_megaPacgumEffect;
   std::clock_t				_effectTime;
   std::clock_t				_startGhostsTime;
+  std::string				_player;
 
   void					setMap();
   void					setPacman();
@@ -166,6 +167,8 @@ class Pacman: public AGame
   int					againstGhosts(const int y, const int x);
   void					removeEyes();
   void					addEyes();
+  void					addScore() const;
+  int					checkGame() const;
 
 public:
   Pacman();

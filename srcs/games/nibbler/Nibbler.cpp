@@ -5,10 +5,11 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-** Last update Fri Apr  1 19:13:37 2016 Dylqn Coodien
+** Last update Sun Apr  3 19:16:51 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
+#include <fstream>
 #include "games/nibbler/Nibbler.hpp"
 #include "Protocol.hpp"
 
@@ -99,15 +100,27 @@ std::vector<t_snakePosition *>		*Nibbler::getSnake() const
   return (this->snake);
 }
 
-void					Nibbler::startGame(IDisplayManager &dis, std::string const &player)
+void					Nibbler::startGame(IDisplayManager &dis,
+							   std::string const &player)
 {
-  (void)player;
+  _player = player;
   dis.createWindow(WIDTH, HEIGHT, "Nibbler");
   dis.setShape(0, "  map", 0xFFFFFFFF, "");
   dis.setShape(-1, "X bord", 0xFF00FF00, "");
   dis.setShape(1, "o snake", 0xFF000000, "");
   dis.setShape(2, ". food", 0xFF0000FF, "./resources/snake/food.png");
   dis.startGame(*this);
+}
+
+void			Nibbler::addScore() const
+{
+  std::ofstream		scores("scores/lib_arcade_nibbler.scores", std::ios::app);
+
+  if (scores)
+    {
+      scores << _player.c_str() << ":" << score << std::endl;
+      scores.close();
+    }
 }
 
 int			Nibbler::play(char move)
@@ -149,7 +162,10 @@ int			Nibbler::play(char move)
 
   tyle = map[snake->at(0)->coordinates->y][snake->at(0)->coordinates->x];
   if (tyle == BORDER || tyle == SNAKE)
-    return (1);
+    {
+      addScore();
+      return (1);
+    }
   map[snake->at(0)->coordinates->y][snake->at(0)->coordinates->x] = SNAKE;
   return (0);
 }

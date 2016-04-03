@@ -5,12 +5,12 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Sun Apr  3 18:49:27 2016 Dylqn Coodien
+** Last update Sun Apr  3 19:29:11 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
 #include <math.h>
-#include <iostream>
+#include <fstream>
 #include "games/pacman/Pacman.hpp"
 
 Pacman::Pacman()
@@ -90,9 +90,10 @@ void				Pacman::setMoves()
   _lastMove = &Pacman::moveLeft;
 }
 
-void				Pacman::startGame(IDisplayManager &dis, std::string const &player)
+void				Pacman::startGame(IDisplayManager &dis,
+						  std::string const &player)
 {
-  (void)player;
+  _player = player;
   dis.createWindow(WIDTH, HEIGHT, "Pacman");
   dis.setShape(0, "  map", 0xFFFFFFFF, "");
   dis.setShape(-1, "x bord", 0xFF00FF00, "");
@@ -179,6 +180,31 @@ void				Pacman::removeEyes()
     }
 }
 
+void				Pacman::addScore() const
+{
+  std::ofstream		scores("scores/lib_arcade_pacman.scores", std::ios::app);
+
+  if (scores)
+    {
+      scores << _player.c_str() << ":" << _score << std::endl;
+      scores.close();
+    }
+}
+
+int				Pacman::checkGame() const
+{
+  for (int y = 0; y < HEIGHT; ++y)
+    {
+      for (int x = 0; x < WIDTH; ++x)
+	{
+	  if (map[y][x] == PACGUM || map[y][x] == MEGA_PACGUM)
+	    return (0);
+	}
+    }
+  addScore();
+  return (1);
+}
+
 int				Pacman::play(char move)
 {
   std::clock_t		time = std::clock();
@@ -194,19 +220,25 @@ int				Pacman::play(char move)
   removeEyes();
 
   if (whichMoves(move) == 1)
-    return (1);
+    {
+      addScore();
+      return (1);
+    }
 
   if (ghostPlay == 0)
     {
       ghostPlay = 1;
       if (moveGhosts(time) != 0)
-	return (1);
+	{
+	  addScore();
+	  return (1);
+	}
     }
   else
     ghostPlay = 0;
   addEyes();
   this->previousTime = time;
-  return (0);
+  return (checkGame());
 }
 
 int				Pacman::getScore() const
