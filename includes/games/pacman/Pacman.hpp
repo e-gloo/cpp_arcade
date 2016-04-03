@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:25:45 2016 Dylqn Coodien
-** Last update Sat Apr  2 21:09:57 2016 Dylqn Coodien
+** Last update Sun Apr  3 18:51:43 2016 Dylqn Coodien
 */
 
 #ifndef PACMAN_HPP_
@@ -28,7 +28,7 @@
 # define GHOSTS_INDEX	5
 # define EYES		9
 
-# define POINTS		25
+# define POINTS		10
 # define MEGA_POINTS	100
 
 # define WIDTH		32

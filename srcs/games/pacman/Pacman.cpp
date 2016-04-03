@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Sat Apr  2 21:37:27 2016 Dylqn Coodien
+** Last update Sun Apr  3 18:49:27 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
@@ -476,7 +476,7 @@ void				Pacman::Ghosts::getDirections(char *map[32],
   t_coordinates		a;
   t_coordinates		b;
   t_coordinates		c;
-  int			random = rand() % 10;
+  //int			random = rand() % 10;
 
   if (((_direction == UP || _direction == DOWN) &&
       (map[_positions->y][_positions->x - 1] != BORDER ||
