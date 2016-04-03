@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:25:45 2016 Dylqn Coodien
-** Last update Sun Apr  3 19:25:17 2016 Dylqn Coodien
+** Last update Sun Apr  3 19:32:22 2016 Dylqn Coodien
 */
 
 #ifndef PACMAN_HPP_
@@ -73,6 +73,21 @@ class Pacman: public AGame
     int			_prevTyle;
     Pacman		*_ptr;
 
+    int			moveUp(char *map[32]);
+    int			moveDown(char *map[32]);
+    int			moveLeft(char *map[32]);
+    int			moveRight(char *map[32]);
+    int			leftOrRight(char *map[32]);
+    int			upOrDown(char *map[32]);
+    int			getPrevTyle() const;
+    void		changeDirections(const t_coordinates *);
+    void		escape(char *map[32], int const x, int const y,
+			       t_coordinates &a, t_coordinates &b,
+			       t_coordinates &c);
+    void		findTarget(char *map[32], int const x, int const y,
+				   t_coordinates &a, t_coordinates &b,
+				   t_coordinates &c);
+
   public:
     Ghosts(const GhostsMode &mode, const int &mapIndex, const GhostsDirection &direction,
 	   Pacman *);
@@ -85,21 +100,7 @@ class Pacman: public AGame
     void		setPositions(const int &x, const int &y);
     t_coordinates	*getPositions() const;
     int			move(char *map[32]);
-    int			moveUp(char *map[32]);
-    int			moveDown(char *map[32]);
-    int			moveLeft(char *map[32]);
-    int			moveRight(char *map[32]);
-    int			leftOrRight(char *map[32]);
-    int			upOrDown(char *map[32]);
-    int			getPrevTyle() const;
     void		getDirections(char *map[32], t_coordinates *pacman);
-    void		changeDirections(const t_coordinates *);
-    void		escape(char *map[32], int const x, int const y,
-			       t_coordinates &a, t_coordinates &b,
-			       t_coordinates &c);
-    void		findTarget(char *map[32], int const x, int const y,
-				   t_coordinates &a, t_coordinates &b,
-				   t_coordinates &c);
   };
 
   char			map_[HEIGHT][WIDTH] =

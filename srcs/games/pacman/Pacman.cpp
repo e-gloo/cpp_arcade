@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:14:50 2016 Dylqn Coodien
-** Last update Sun Apr  3 19:29:11 2016 Dylqn Coodien
+** Last update Sun Apr  3 19:31:42 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
@@ -508,7 +508,6 @@ void				Pacman::Ghosts::getDirections(char *map[32],
   t_coordinates		a;
   t_coordinates		b;
   t_coordinates		c;
-  //int			random = rand() % 10;
 
   if (((_direction == UP || _direction == DOWN) &&
       (map[_positions->y][_positions->x - 1] != BORDER ||
@@ -553,9 +552,8 @@ void				Pacman::Ghosts::getDirections(char *map[32],
 	  c.x = _positions->x;
 	  c.y = _positions->y + 1;
 	}
-      //if (random == 9)
-      //findTarget(map, 16, 16, a, b, c);
-      if (_mode != GhostsMode::EYESREMAINING && _positions->x >= 13 && _positions->x <= 18 && _positions->y >= 13 && _positions->y <= 16)
+      if (_mode != GhostsMode::EYESREMAINING && _positions->x >= 13 &&
+	  _positions->x <= 18 && _positions->y >= 13 && _positions->y <= 16)
 	findTarget(map, 15, 12, a, b, c);
       else if (_mode == GhostsMode::BASIC)
 	findTarget(map, pacman->x, pacman->y, a, b , c);
