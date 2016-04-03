@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Fri Apr  1 00:25:45 2016 Dylqn Coodien
-** Last update Sun Apr  3 19:32:22 2016 Dylqn Coodien
+// Last update Sun Apr  3 22:07:53 2016 François Cassin
 */
 
 #ifndef PACMAN_HPP_
@@ -36,7 +36,7 @@
 
 # define MIN_TIME	100
 # define EFFECT_TIME	10000
-# define START_TIME	1000
+# define START_TIME	10000
 # define NB_GHOSTS	4
 
 typedef struct	s_coordinates
