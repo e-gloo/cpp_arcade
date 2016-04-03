@@ -5,7 +5,7 @@
 ** Login   <coodie_d@epitech.eu>
 ** 
 ** Started on  Tue Mar 15 14:59:35 2016 Dylan Coodien
-** Last update Sun Apr  3 19:16:51 2016 Dylqn Coodien
+** Last update Sun Apr  3 20:01:03 2016 Dylqn Coodien
 */
 
 #include <unistd.h>
@@ -126,8 +126,6 @@ void			Nibbler::addScore() const
 int			Nibbler::play(char move)
 {
   std::clock_t		time = std::clock();
-  int			timeDiff;
-  int			nbMoves;
   int			index;
   int			move_index;
   char			tyle;

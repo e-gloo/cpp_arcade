@@ -2,7 +2,7 @@ CC		= g++
 
 RM		= rm -f
 
-CFLAGS		+= -Wall -Werror -Wextra -Wno-unused -I./includes/ --std=c++11
+CFLAGS		+= -Wall -Werror -Wextra -I./includes/ --std=c++11
 
 LDFLAGS		+= -ldl -lncurses
 

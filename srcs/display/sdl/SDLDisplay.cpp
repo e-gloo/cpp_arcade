@@ -123,8 +123,6 @@ void		SDLDisplay::catchEvent()
 
 void		SDLDisplay::displayMap(char **map, int const sizeX, int const sizeY)
 {
-  SDL_Rect	rect;
-
   for (int i = 0; i < sizeY; ++i)
     for (int j = 0; j < sizeX; ++j)
       drawCase(i, j, map);
